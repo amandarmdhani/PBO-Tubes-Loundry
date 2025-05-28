@@ -1,11 +1,126 @@
-<!-- src/main/resources/templates/dashboard.html -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="id">
 <head>
-    <title>Dashboard User</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard FreshWash Laundry</title>
+  <link rel="stylesheet" href="css/dashboarduser.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h2>Welcome to the Dashboard!</h2>
-    <a th:href="@{/logout}">Logout</a>
+    <nav class="navbar">
+    <div class="logo">FreshWash</div>
+    
+    <ul class="nav-links">
+        <li><a href="#layanan">Layanan</a></li>
+        <li><a href="#paket">Paket</a></li>
+        <li><a href="#testimoni">Testimoni</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+    </ul>
+
+    <button class="profile-btn" onclick="window.location.href='#profil'">Profil</button>
+    </nav>
+
+
+  <header class="hero">
+    <img src="img/laundry-illustration.jpg" alt="Ilustrasi Laundry" class="hero-image">
+    <div class="hero-text">
+      <h1>Selamat Datang di FreshWash Laundry</h1>
+      <p>Mitra terpercaya Anda untuk cucian bersih dan wangi</p>
+    </div>
+  </header>
+
+  <section class="cards" id="layanan">
+    <div class="card">
+      <i class="fas fa-tshirt"></i>
+      <h2>Pencucian Profesional</h2>
+      <p>Kami menangani pakaian Anda dengan peralatan dan teknik modern.</p>
+    </div>
+    <div class="card">
+      <i class="fas fa-truck"></i>
+      <h2>Antar-Jemput Gratis</h2>
+      <p>Layanan antar-jemput gratis untuk semua pesanan di atas Rp100.000.</p>
+    </div>
+    <div class="card">
+      <i class="fas fa-check-circle"></i>
+      <h2>Garansi Kepuasan</h2>
+      <p>Kepuasan pelanggan adalah prioritas kami. Dijamin 100% puas!</p>
+    </div>
+  </section>
+
+  <section class="plans" id="paket">
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('lipat')">Cuci Kering Lipat (reguler)</button>
+      <button class="tab" onclick="switchTab('setrika')">Cuci Kering Setrika (reguler)</button>
+    </div>
+
+    <div id="lipat" class="plan-content active">
+      <h3>Cuci Kering Lipat (reguler)</h3>
+      <ul>
+        <li>✓ Harga terjangkau untuk pakaian harian</li>
+        <li>✓ Proses standar 2–3 hari</li>
+        <li>Rp7.000/kg</li>
+      </ul>
+      <button class="cta">Pesan Sekarang</button>
+    </div>
+
+    <div id="setrika" class="plan-content">
+      <h3>Cuci Kering Setrika (reguler)</h3>
+      <ul>
+        <li>✓ Harga terjangkau untuk pakaian harian</li>
+        <li>✓ Proses standar 2–3 hari</li>
+        <li>✓ Termasuk layanan lipat</li>
+        <li>Rp10.000/kg</li>
+      </ul>
+      <button class="cta">Pesan Sekarang</button>
+      </ul>
+    </div>
+
+
+    <section class="testimonial" id="testimoni">
+    <h2 class="testimonial-title">Apa Kata Pelanggan Kami</h2>
+    <div class="testimonial-container">
+        <div class="testimonial-card">
+        <p>"FreshWash sangat membantu! Layanan cepat dan pakaian saya harum!"</p>
+        <span>- Sarah, Jakarta</span>
+        </div>
+        <div class="testimonial-card">
+        <p>"Antar-jemput yang praktis. Kualitasnya luar biasa."</p>
+        <span>- Andi, Bandung</span>
+        </div>
+        <div class="testimonial-card">
+        <p>"Sangat puas dengan pelayanan yang cepat dan hasil yang sempurna!"</p>
+        <span>- Lila, Surabaya</span>
+        </div>
+    </div>
+    </section>
+
+
+  <footer id="kontak">
+    <div class="footer-container">
+      <div class="footer-about">
+        <h3>FreshWash Laundry</h3>
+        <p>Mitra Anda untuk layanan laundry berkualitas di kota Anda.</p>
+      </div>
+      <div class="footer-contact">
+        <h4>Hubungi Kami</h4>
+        <p>Email: support@freshwash.com</p>
+        <p>Telepon: +62 812 3456 7890</p>
+        <p>Alamat: Jl. Bersih No. 1, Jakarta</p>
+      </div>
+    </div>
+    <p class="copyright">&copy; 2025 FreshWash Laundry. Hak cipta dilindungi.</p>
+  </footer>
+
+  <script>
+    function switchTab(plan) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.plan-content').forEach(c => c.classList.remove('active'));
+      document.querySelector(`[onclick*="${plan}"]`).classList.add('active');
+      document.getElementById(plan).classList.add('active');
+    }
+  </script>
 </body>
 </html>
