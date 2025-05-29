@@ -1,4 +1,3 @@
-// CustomUserDetails.java
 package com.example.crud.security;
 
 import com.example.crud.Model.User;
