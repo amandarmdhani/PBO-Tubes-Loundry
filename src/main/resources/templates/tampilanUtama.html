@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Landing Page with Smooth Move</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom, #ffffff, #dbeafe);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-top: 100px;
+  }
+
+  .hero p {
+    margin-top: 20px;
+    color: #4b5563;
+    font-size: 1.1rem;
+    max-width: 600px;
+  }
+
+  .buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .buttons a {
+    text-decoration: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 30px;
+    transition: 0.3s;
+  }
+
+  .login-btn {
+    background-color: #2563eb;
+    color: white;
+  }
+
+  .login-btn:hover {
+    background-color: #1d4ed8;
+  }
+
+  .register-btn {
+    background-color: #e5e7eb;
+    color: #1f2937;
+  }
+
+  .register-btn:hover {
+    background-color: #d1d5db;
+  }
+
+  .gallery {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    width: 90%;
+    max-width: 1200px;
+    padding-bottom: 60px;
+  }
+
+  .card {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background: white;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .card img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .card p {
+    margin: 10px;
+    background: #f3f4f6;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+  }
+
+  .content-box {
+    background-color: #c7d2fe;
+    border-radius: 30px;
+    padding: 40px;
+    margin-top: 100px;
+    width: 90%;
+    max-width: 1300px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: min-height 0.3s ease;
+    min-height: 320px;
+  }
+
+  .content-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    align-items: flex-start;
+    min-height: 280px;
+  }
+
+  .content-images .card {
+    max-width: 250px;
+    text-align: center;
+    margin: 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>Welcome To<br>Clothers</h1>
+    <p>Kami hadir untuk membuat hidup Anda lebih nyaman.
+    Nikmati layanan laundry harian, express, dan antar-jemput dari rumah Anda.
+    Cukup pesan, kami yang urus cucian Anda!</p>
+
+    <div class="buttons">
+      <a href="login.html" class="login-btn">Log In</a>
+      <a href="register.html" class="register-btn">Register</a>
+    </div>
+  </div>
+
+  <!-- Gallery Section -->
+  <div class="gallery" id="gallery">
+    <div class="card movable">
+      <img src="/static/images/Baju.png" alt="Baju" />
+      <p>Nordar Lamp - $84.00</p>
+    </div>
+    <div class="card movable">
+      <img src="/images/sofa.png" alt="Sofa" />
+      <p>Modern Sofa - $399.00</p>
+    </div>
+    <div class="card movable">
+      <img src="/images/woman.png" alt="Consult" />
+      <p>Consult With Our Interior Designers</p>
+    </div>
+  </div>
+
+  <!-- Unified Purple Box Section -->
+  <div class="content-box" id="content-box">
+    <div class="content-images" id="content-images">
+      <!-- Foto akan pindah ke sini saat scroll -->
+    </div>
+  </div>
+
+<script>
+const movableItems = document.querySelectorAll('.movable');
+const gallery = document.getElementById('gallery');
+const contentImages = document.getElementById('content-images');
+const contentBox = document.getElementById('content-box');
+
+function flipMove(element, newParent) {
+  const firstRect = element.getBoundingClientRect();
+  const scrollTop = window.scrollY;
+
+  const placeholder = document.createElement('div');
+  placeholder.style.width = `${firstRect.width}px`;
+  placeholder.style.height = `${firstRect.height}px`;
+  element.parentNode.insertBefore(placeholder, element);
+
+  const startTop = firstRect.top + scrollTop;
+
+  newParent.appendChild(element);
+
+  const lastRect = element.getBoundingClientRect();
+  const endTop = lastRect.top + window.scrollY;
+  const deltaY = startTop - endTop;
+
+  element.style.transition = 'none';
+  element.style.transform = `translateY(${deltaY}px)`;
+  element.style.opacity = '0.6';
+
+  requestAnimationFrame(() => {
+    element.style.transition = 'transform 0.6s ease, opacity 0.6s ease';
+    element.style.transform = '';
+    element.style.opacity = '1';
+
+    element.addEventListener('transitionend', () => {
+      element.style.transition = '';
+      element.style.transform = '';
+      placeholder.remove();
+    }, { once: true });
+  });
+}
+
+function moveElements(toContentBox) {
+  movableItems.forEach(item => {
+    if (toContentBox && item.parentElement !== contentImages) {
+      flipMove(item, contentImages);
+    } else if (!toContentBox && item.parentElement !== gallery) {
+      flipMove(item, gallery);
+    }
+  });
+
+  updateBoxHeight();
+}
+
+function updateBoxHeight() {
+  const totalHeight = [...contentImages.children].reduce((sum, el) => {
+    return sum + el.getBoundingClientRect().height;
+  }, 0);
+  contentBox.style.minHeight = (totalHeight + 80) + 'px';
+}
+
+function checkScroll() {
+  const scrollPos = window.scrollY || window.pageYOffset;
+  const threshold = contentBox.offsetTop - window.innerHeight / 2;
+
+  if (scrollPos > threshold) {
+    moveElements(true);
+  } else {
+    moveElements(false);
+  }
+}
+
+window.addEventListener('scroll', checkScroll);
+window.addEventListener('load', checkScroll);
+</script>
+
+</body>
+</html>

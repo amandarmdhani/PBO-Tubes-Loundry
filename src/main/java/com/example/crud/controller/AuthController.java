@@ -17,10 +17,16 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    // Halaman utama (landing page sebelum login)
+    @GetMapping("/")
+    public String tampilanUtama() {
+        return "tampilanUtama"; // pastikan file tampilanUtama.html ada di /resources/templates/
+    }
+
     // Tampilkan halaman login
     @GetMapping("/login")
     public String login(Model model) {
-        model.addAttribute("user", new User()); // Tambahkan model user agar form bisa binding
+        model.addAttribute("user", new User());
         return "login";
     }
 
@@ -48,20 +54,17 @@ public class AuthController {
         return "redirect:/login";
     }
 
-
     // Proses login
     @PostMapping("/login")
     public String loginUser(@ModelAttribute User formUser, Model model) {
         User user = userRepository.findByUsername(formUser.getUsername());
 
         if (user != null && passwordEncoder.matches(formUser.getPassword(), user.getPassword())) {
-            // Login berhasil
             model.addAttribute("username", user.getUsername());
             model.addAttribute("role", user.getRole());
-            return "dashboard"; // arahkan ke halaman dashboard.html
+            return "dashboard";
         }
 
-        // Gagal login
         model.addAttribute("error", "Username atau password salah");
         return "login";
     }
