@@ -16,16 +16,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                // Halaman utama, login, register, dan resource statis bebas diakses tanpa login
-                .requestMatchers("/", "/tampilanUtama", "/register", "/login", "/css/**", "/js/**").permitAll()
-                // Hanya admin yang bisa akses /admin/**
+                .requestMatchers("/register", "/login", "/css/**", "/js/**").permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                // Semua request lain harus login dulu
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                .defaultSuccessUrl("/dashboard", true)  // setelah login diarahkan ke dashboard
+                .defaultSuccessUrl("/dashboard", true)
                 .permitAll()
             )
             .logout(logout -> logout

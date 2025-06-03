@@ -68,4 +68,14 @@ public class AuthController {
         model.addAttribute("error", "Username atau password salah");
         return "login";
     }
+
+        @Controller
+    public class ProfileController {
+
+        @GetMapping("/profil")
+        public String getProfilPage() {
+            return "profil"; // akan mencari profil.html di templates/
+        }
+    }
+
 }
