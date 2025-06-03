@@ -7,8 +7,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Configuration
 @EnableWebSecurity
@@ -27,15 +25,18 @@ public class SecurityConfig {
                 // Halaman utama, login, register, dan resource statis bebas diakses tanpa login
                 .requestMatchers("/", "/tampilanUtama", "/register", "/login", "/css/**", "/js/**").permitAll()
                 // Hanya admin yang bisa akses /admin/**
-                .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                .requestMatchers("/admin/**").hasRole("ADMIN")  // menggunakan hasRole
+                // Dashboard bisa diakses oleh admin dan user
+                .requestMatchers("/dashboard").hasAnyRole("ADMIN", "USER")
                 // Semua request lain harus login dulu
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                .defaultSuccessUrl("/dashboard", true)  // setelah login diarahkan ke dashboard
+                .successHandler(customLoginSuccessHandler)
                 .permitAll()
             )
+
             .logout(logout -> logout.permitAll());
 
         return http.build();

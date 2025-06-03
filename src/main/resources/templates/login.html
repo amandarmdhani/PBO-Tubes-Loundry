@@ -1,146 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
-    <style>
-        /* Same style as Register */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background: #f0f4ff;
-            display: flex;
-            height: 100vh;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .container {
-            display: flex;
-            width: 900px;
-            height: 600px;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .left-panel {
-            background: #396afc;
-            color: white;
-            width: 55%;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .left-panel h2 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .left-panel p {
-            font-size: 14px;
-            color: #e0e0e0;
-        }
-
-        .graphics {
-            margin-top: 30px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-gap: 10px;
-        }
-
-        .graphics div {
-            background: rgba(255, 255, 255, 0.15);
-            height: 80px;
-            border-radius: 8px;
-        }
-
-        .right-panel {
-            background: white;
-            padding: 50px;
-            width: 45%;
-        }
-
-        .right-panel h3 {
-            margin-bottom: 25px;
-            font-size: 20px;
-            color: #333;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-        }
-
-        .btn {
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .btn-login {
-            background: #1b1f93;
-            color: white;
-            margin-right: 10px;
-        }
-
-        .btn-register {
-            background: #4a5be0;
-            color: white;
-        }
-
-        .error-msg {
-            color: rgb(87, 108, 193);
-            font-size: 14px;
-            margin-top: 10px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"/>
+  <link rel="stylesheet" href="css/register.css" />
 </head>
 <body>
 <div class="container">
-    <div class="left-panel">
-        <h2>Login Now.</h2>
-        <p>Welcome back! Please enter your details.</p>
-        <div class="graphics">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
+  <div class="left-panel">
+    <!-- Logo kiri atas -->
+    <img src="img/logo.png" alt="Logo" class="logo-img" />
+
+    <!-- Grafik gambar -->
+    <div class="graphics">
+      <div><img src="https://img.freepik.com/free-photo/still-life-say-no-fast-fashion_23-2149669582.jpg" alt="HTML Icon" /></div>
+      <div><img src="https://c1.wallpaperflare.com/preview/660/454/364/washing-machine-laundry-tumble-drier-housework.jpg" alt="CSS Icon" /></div>
+      <div><img src="https://bakerscentrelaundry.com/wp-content/uploads/2024/01/shutterstock_619767104-768x5121-1.jpg" alt="JS Icon" /></div>
+      <div><img src="https://static.vecteezy.com/system/resources/thumbnails/027/804/019/small/washing-machine-filled-with-colorful-towels-and-laundry-door-open-free-photo.jpg" alt="React Icon" /></div>
+      <div><img src="https://img.freepik.com/free-photo/still-life-say-no-fast-fashion_23-2149669583.jpg" alt="Laravel Icon" /></div>
+      <div><img src="https://watermark.lovepik.com/photo/20211209/large/lovepik-housewife-puts-laundry-in-the-washing-machine-picture_501714212.jpg" alt="NodeJS Icon" /></div>
     </div>
-    <div class="right-panel">
-        <h3>Don't have an account? <a href="/register">Register</a></h3>
-        <form method="post" action="/dashboard">
-            <div class="form-group">
-                <input type="text" name="username" placeholder="Username" required>
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" placeholder="Password" required>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-login">Login</button>
-            </div>
-        </form>
+  </div>
+
+  <div class="right-panel">
+    <form th:action="@{/login}" method="post">
+      <div class="form-title">Welcome Back</div>
+      <div class="form-group">
+        <input type="text" name="username" placeholder="Username" required />
+      </div>
+      <div class="form-group">
+        <input type="password" name="password" placeholder="Password" required />
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-register">Login</button>
+      </div>
+
+      <div th:if="${param.error}">
+        <p class="error-msg">Invalid username or password.</p>
+      </div>
+    </form>
+
+    <div class="switch-link">
+      Don't have an account? <a href="/register">Register</a>
     </div>
+  </div>
 </div>
 </body>
 </html>

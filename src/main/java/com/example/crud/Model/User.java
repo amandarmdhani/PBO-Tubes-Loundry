@@ -1,5 +1,6 @@
 package com.example.crud.Model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
@@ -14,10 +15,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String username;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String password;
-    private String role; 
+
+    @Column(nullable = false)
+    private String role;
+
 
     // Getter dan Setter untuk id
     public Long getId() {
