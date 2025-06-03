@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -112,21 +113,32 @@
             margin-top: 10px;
         }
     </style>
+=======
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"/>
+  <link rel="stylesheet" href="css/register.css" />
+>>>>>>> 2b7fae4af8aeefafe3d05b9b875fbf4fce153a0c
 </head>
 <body>
 <div class="container">
-    <div class="left-panel">
-        <h2>Login Now.</h2>
-        <p>Welcome back! Please enter your details.</p>
-        <div class="graphics">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
+  <div class="left-panel">
+    <!-- Logo kiri atas -->
+    <img src="img/logo.png" alt="Logo" class="logo-img" />
+
+    <!-- Grafik gambar -->
+    <div class="graphics">
+      <div><img src="https://img.freepik.com/free-photo/still-life-say-no-fast-fashion_23-2149669582.jpg" alt="HTML Icon" /></div>
+      <div><img src="https://c1.wallpaperflare.com/preview/660/454/364/washing-machine-laundry-tumble-drier-housework.jpg" alt="CSS Icon" /></div>
+      <div><img src="https://bakerscentrelaundry.com/wp-content/uploads/2024/01/shutterstock_619767104-768x5121-1.jpg" alt="JS Icon" /></div>
+      <div><img src="https://static.vecteezy.com/system/resources/thumbnails/027/804/019/small/washing-machine-filled-with-colorful-towels-and-laundry-door-open-free-photo.jpg" alt="React Icon" /></div>
+      <div><img src="https://img.freepik.com/free-photo/still-life-say-no-fast-fashion_23-2149669583.jpg" alt="Laravel Icon" /></div>
+      <div><img src="https://watermark.lovepik.com/photo/20211209/large/lovepik-housewife-puts-laundry-in-the-washing-machine-picture_501714212.jpg" alt="NodeJS Icon" /></div>
     </div>
+<<<<<<< HEAD
     <div class="right-panel">
         <h3>Don't have an account? <a href="/register">Register</a></h3>
         <form th:action="@{/login}" method="post" class="form-container">
@@ -144,7 +156,32 @@
                 <p class="error-msg">Invalid username or password.</p>
             </div>
         </form>
+=======
+  </div>
+
+  <div class="right-panel">
+    <form th:action="@{/login}" method="post">
+      <div class="form-title">Welcome Back</div>
+      <div class="form-group">
+        <input type="text" name="username" placeholder="Username" required />
+      </div>
+      <div class="form-group">
+        <input type="password" name="password" placeholder="Password" required />
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-register">Login</button>
+      </div>
+
+      <div th:if="${param.error}">
+        <p class="error-msg">Invalid username or password.</p>
+      </div>
+    </form>
+
+    <div class="switch-link">
+      Don't have an account? <a href="/register">Register</a>
+>>>>>>> 2b7fae4af8aeefafe3d05b9b875fbf4fce153a0c
     </div>
+  </div>
 </div>
 </body>
 </html>

@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard FreshWash Laundry</title>
+  <title>Dashboard Clothers Laundry</title>
   <link rel="stylesheet" href="css/dashboarduser.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
+<<<<<<< HEAD
 <body>
     <nav class="navbar">
     <div class="logo">FreshWash</div>
@@ -22,12 +23,32 @@
 
     <button class="profile-btn" onclick="window.location.href='/profil'">Profil</button>
     </nav>
+=======
+
+<nav class="navbar">
+  <div class="logo">
+    <img src="img/logo.png" alt="Logo" style="height: 50px; vertical-align: middle; margin-right: 8px;">
+  </div>
+
+  <ul class="nav-links">
+    <li><a href="#layanan">Layanan</a></li>
+    <li><a href="#paket">Paket</a></li>
+    <li><a href="#testimoni">Testimoni</a></li>
+    <li><a href="#kontak">Kontak</a></li>
+  </ul>
+
+  <button class="profile-btn" onclick="window.location.href='#profil'">Profil</button>
+</nav>
+
+>>>>>>> 2b7fae4af8aeefafe3d05b9b875fbf4fce153a0c
 
 
   <header class="hero">
-    <img src="img/laundry-illustration.jpg" alt="Ilustrasi Laundry" class="hero-image">
+  <img src="/img/logo.png" alt="Ilustrasi Laundry" class="hero-image">
+
+
     <div class="hero-text">
-      <h1>Selamat Datang di FreshWash Laundry</h1>
+      <h1>Selamat Datang di Clothers Laundry</h1>
       <p>Mitra terpercaya Anda untuk cucian bersih dan wangi</p>
     </div>
   </header>
@@ -49,41 +70,66 @@
       <p>Kepuasan pelanggan adalah prioritas kami. Dijamin 100% puas!</p>
     </div>
   </section>
+    <section class="plans" id="paket">
+      <div class="tabs">
+        <button class="tab active" data-tab="lipat" onclick="switchTab('lipat')">Cuci Kering Lipat (reguler)</button>
+        <button class="tab" data-tab="setrika" onclick="switchTab('setrika')">Cuci Kering Setrika (reguler)</button>
+        <button class="tab" data-tab="lipat-express" onclick="switchTab('lipat-express')">Cuci Kering Lipat (express)</button>
+        <button class="tab" data-tab="setrika-express" onclick="switchTab('setrika-express')">Cuci Kering Setrika (express)</button>
+      </div>
 
-  <section class="plans" id="paket">
-    <div class="tabs">
-      <button class="tab active" onclick="switchTab('lipat')">Cuci Kering Lipat (reguler)</button>
-      <button class="tab" onclick="switchTab('setrika')">Cuci Kering Setrika (reguler)</button>
-    </div>
+      <!-- Reguler: Lipat -->
+      <div id="lipat" class="plan-content active">
+        <h3>Cuci Kering Lipat (reguler)</h3>
+        <ul>
+          <li>✓ Harga terjangkau untuk pakaian harian</li>
+          <li>✓ Proses standar 2–3 hari</li>
+          <li>Rp7.000/kg</li>
+        </ul>
+        <button class="cta" data-service="Cuci Kering Lipat (reguler)" data-price="7000">Pesan Sekarang</button>
+      </div>
 
-    <div id="lipat" class="plan-content active">
-      <h3>Cuci Kering Lipat (reguler)</h3>
-      <ul>
-        <li>✓ Harga terjangkau untuk pakaian harian</li>
-        <li>✓ Proses standar 2–3 hari</li>
-        <li>Rp7.000/kg</li>
-      </ul>
-      <button class="cta">Pesan Sekarang</button>
-    </div>
+      <!-- Reguler: Setrika -->
+      <div id="setrika" class="plan-content">
+        <h3>Cuci Kering Setrika (reguler)</h3>
+        <ul>
+          <li>✓ Harga terjangkau untuk pakaian harian</li>
+          <li>✓ Proses standar 2–3 hari</li>
+          <li>✓ Termasuk layanan lipat</li>
+          <li>Rp10.000/kg</li>
+        </ul>
+        <button class="cta" data-service="Cuci Kering Setrika (reguler)" data-price="10000">Pesan Sekarang</button>
+      </div>
 
-    <div id="setrika" class="plan-content">
-      <h3>Cuci Kering Setrika (reguler)</h3>
-      <ul>
-        <li>✓ Harga terjangkau untuk pakaian harian</li>
-        <li>✓ Proses standar 2–3 hari</li>
-        <li>✓ Termasuk layanan lipat</li>
-        <li>Rp10.000/kg</li>
-      </ul>
-      <button class="cta">Pesan Sekarang</button>
-      </ul>
-    </div>
+      <!-- Express: Lipat -->
+      <div id="lipat-express" class="plan-content">
+        <h3>Cuci Kering Lipat (express)</h3>
+        <ul>
+          <li>✓ Prioritas pengerjaan cepat</li>
+          <li>✓ Selesai dalam 24 jam</li>
+          <li>Rp12.000/kg</li>
+        </ul>
+        <button class="cta" data-service="Cuci Kering Lipat (express)" data-price="12000">Pesan Sekarang</button>
+      </div>
 
+      <!-- Express: Setrika -->
+      <div id="setrika-express" class="plan-content">
+        <h3>Cuci Kering Setrika (express)</h3>
+        <ul>
+          <li>✓ Prioritas pengerjaan cepat</li>
+          <li>✓ Termasuk layanan setrika dan lipat</li>
+          <li>✓ Selesai dalam 24 jam</li>
+          <li>Rp15.000/kg</li>
+        </ul>
+        <button class="cta" data-service="Cuci Kering Setrika (express)" data-price="15000">Pesan Sekarang</button>
+      </div>
+    </section>
 
     <section class="testimonial" id="testimoni">
     <h2 class="testimonial-title">Apa Kata Pelanggan Kami</h2>
     <div class="testimonial-container">
         <div class="testimonial-card">
-        <p>"FreshWash sangat membantu! Layanan cepat dan pakaian saya harum!"</p>
+        <p>"Clothers sangat membantu! Layanan cepat dan pakaian saya harum!"</p>
         <span>- Sarah, Jakarta</span>
         </div>
         <div class="testimonial-card">
@@ -101,26 +147,229 @@
   <footer id="kontak">
     <div class="footer-container">
       <div class="footer-about">
-        <h3>FreshWash Laundry</h3>
+        <h3>Clothers Laundry</h3>
         <p>Mitra Anda untuk layanan laundry berkualitas di kota Anda.</p>
       </div>
       <div class="footer-contact">
         <h4>Hubungi Kami</h4>
-        <p>Email: support@freshwash.com</p>
+        <p>Email: support@Clothers.com</p>
         <p>Telepon: +62 812 3456 7890</p>
         <p>Alamat: Jl. Bersih No. 1, Jakarta</p>
       </div>
     </div>
-    <p class="copyright">&copy; 2025 FreshWash Laundry. Hak cipta dilindungi.</p>
+    <p class="copyright">&copy; 2025 Clothers Laundry. Hak cipta dilindungi.</p>
   </footer>
 
-  <script>
-    function switchTab(plan) {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.plan-content').forEach(c => c.classList.remove('active'));
-      document.querySelector(`[onclick*="${plan}"]`).classList.add('active');
-      document.getElementById(plan).classList.add('active');
+  <!-- Modal -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="modal-title">Judul Layanan</h2>
+
+    <p>Masukkan jumlah kilogram:</p>
+    <input type="number" id="kg-input" min="1" value="1" />
+
+    <p>Pilih metode pengantaran:</p>
+    <div>
+      <label>
+        <input type="radio" name="delivery" value="0" checked />
+        Ambil Sendiri (Gratis)
+      </label><br>
+      <label>
+        <input type="radio" name="delivery" value="3000" />
+        Antar ke Rumah (+Rp3.000)
+      </label>
+    </div>
+
+<p>Pilih metode pembayaran:</p>
+<select id="payment-select">
+  <option value="cod" selected>COD (Bayar di Tempat)</option>
+  <option value="transfer">Transfer Bank</option>
+  <option value="ewallet">E-Wallet</option>
+</select>
+
+
+    <!-- Pilihan bank (hidden by default) -->
+    <div id="bank-options" style="display:none; margin-top:8px;">
+      <label for="bank-select">Pilih Bank:</label>
+      <select id="bank-select">
+        <option value="">-- Pilih Bank --</option>
+        <option value="bca">BCA</option>
+        <option value="mandiri">Mandiri</option>
+        <option value="bni">BNI</option>
+      </select>
+    </div>
+
+    <!-- Pilihan e-wallet (hidden by default) -->
+    <div id="ewallet-options" style="display:none; margin-top:8px;">
+      <label for="ewallet-select">Pilih E-Wallet:</label>
+      <select id="ewallet-select">
+        <option value="">-- Pilih E-Wallet --</option>
+        <option value="gopay">Gopay</option>
+        <option value="ovo">OVO</option>
+        <option value="dana">Dana</option>
+      </select>
+    </div>
+
+    <p>Total: <span id="total-price">Rp0</span></p>
+
+    <button class="confirm-btn">Konfirmasi Pesanan</button>
+  </div>
+</div>
+<!-- Bagian akhir script sebelum </body> -->
+<script>
+  const modal = document.getElementById("modal");
+  const modalTitle = document.getElementById("modal-title");
+  const kgInput = document.getElementById("kg-input");
+  const totalPriceEl = document.getElementById("total-price");
+  const closeBtn = document.querySelector(".close");
+  const confirmBtn = document.querySelector(".confirm-btn");
+
+  let currentPrice = 0;
+  let currentService = "";
+
+  // Saat tombol layanan diklik
+  document.querySelectorAll(".cta").forEach(button => {
+    button.addEventListener("click", () => {
+      currentService = button.dataset.service;
+      currentPrice = parseInt(button.dataset.price);
+
+      modalTitle.textContent = currentService;
+      kgInput.value = 1;
+
+      updateTotalPrice();
+      updatePaymentOptions(); // Reset opsi pembayaran saat modal dibuka
+      modal.style.display = "flex";
+    });
+  });
+
+  // Fungsi update total harga
+  function updateTotalPrice() {
+    const kg = parseInt(kgInput.value) || 0;
+    const deliveryCost = parseInt(document.querySelector('input[name="delivery"]:checked').value) || 0;
+    const total = currentPrice * kg + deliveryCost;
+
+    totalPriceEl.textContent = `Rp${total.toLocaleString("id-ID")}`;
+  }
+
+  // Event listener input kilogram
+  kgInput.addEventListener("input", updateTotalPrice);
+
+  // Event listener untuk pilihan pengantaran
+  document.querySelectorAll('input[name="delivery"]').forEach(radio => {
+    radio.addEventListener('change', updateTotalPrice);
+  });
+
+  // Tutup modal saat klik tombol close
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  // Tutup modal saat klik di luar konten modal
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
     }
+<<<<<<< HEAD
   </script>
+=======
+  });
+
+  // Konfirmasi pesanan
+  confirmBtn.addEventListener("click", () => {
+    const kg = parseInt(kgInput.value) || 0;
+    const deliveryCost = parseInt(document.querySelector('input[name="delivery"]:checked').value) || 0;
+    const total = currentPrice * kg + deliveryCost;
+
+    alert(`✅ Pesanan untuk ${currentService} sebanyak ${kg} kg berhasil!\nTotal: Rp${total.toLocaleString("id-ID")}`);
+    modal.style.display = "none";
+  });
+
+  // Fungsi untuk switch tab
+  function switchTab(tabId) {
+    document.querySelectorAll('.plan-content').forEach(tab => {
+      tab.classList.remove('active');
+    });
+    const selectedTab = document.getElementById(tabId);
+    if (selectedTab) selectedTab.classList.add('active');
+    document.querySelectorAll('.tab').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    const matchingButton = document.querySelector(`.tab[data-tab="${tabId}"]`);
+    if (matchingButton) matchingButton.classList.add('active');
+  }
+
+  // -- FUNGSI TAMBAHAN UNTUK METODE PEMBAYARAN --
+// -- FUNGSI TAMBAHAN UNTUK METODE PEMBAYARAN --
+const paymentSelect = document.getElementById('payment-select');
+const bankOptions = document.getElementById('bank-options');
+const ewalletOptions = document.getElementById('ewallet-options');
+
+function updatePaymentOptions() {
+  const selectedPayment = paymentSelect.value;
+  if (selectedPayment === 'transfer') {
+    bankOptions.style.display = 'block';
+    ewalletOptions.style.display = 'none';
+  } else if (selectedPayment === 'ewallet') {
+    bankOptions.style.display = 'none';
+    ewalletOptions.style.display = 'block';
+  } else {
+    bankOptions.style.display = 'none';
+    ewalletOptions.style.display = 'none';
+  }
+}
+
+// Jalankan saat load
+updatePaymentOptions();
+
+// Event listener saat select payment berubah
+paymentSelect.addEventListener('change', updatePaymentOptions);
+
+confirmBtn.addEventListener("click", () => {
+  const kg = parseInt(kgInput.value) || 0;
+  const deliveryCost = parseInt(document.querySelector('input[name="delivery"]:checked')?.value || 0);
+  const paymentMethod = paymentSelect.value;
+  const paymentDetail = 
+    paymentMethod === 'transfer' ? document.getElementById("bank-select").value :
+    paymentMethod === 'ewallet' ? document.getElementById("ewallet-select").value : "COD";
+
+  const total = currentPrice * kg + deliveryCost;
+
+  const orderData = {
+    service: currentService,
+    kilogram: kg,
+    deliveryCost: deliveryCost,
+    paymentMethod: paymentMethod,
+    paymentDetail: paymentDetail,
+    totalPrice: total
+  };
+
+fetch('http://localhost:8080/api/orders', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(orderData),
+  // credentials: 'include' // aktifkan jika backend perlu cookie/session
+})
+.then(res => {
+  if (res.ok) {
+    alert(`✅ Pesanan untuk ${currentService} sebanyak ${kg} kg berhasil!\nTotal: Rp${total.toLocaleString("id-ID")}`);
+    modal.style.display = "none";
+  } else {
+    alert("❌ Gagal mengirim pesanan.");
+  }
+})
+.catch(err => {
+  console.error(err);
+  alert("❌ Terjadi kesalahan saat mengirim pesanan.");
+});
+
+});
+
+
+</script>
+
+>>>>>>> 2b7fae4af8aeefafe3d05b9b875fbf4fce153a0c
 </body>
 </html>
