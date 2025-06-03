@@ -7,6 +7,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -21,14 +23,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+            .cors()
+            .and()
+            .csrf().disable()
             .authorizeHttpRequests(auth -> auth
-                // Halaman utama, login, register, dan resource statis bebas diakses tanpa login
                 .requestMatchers("/", "/tampilanUtama", "/register", "/login", "/css/**", "/js/**").permitAll()
-                // Hanya admin yang bisa akses /admin/**
-                .requestMatchers("/admin/**").hasRole("ADMIN")  // menggunakan hasRole
-                // Dashboard bisa diakses oleh admin dan user
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/dashboard").hasAnyRole("ADMIN", "USER")
-                // Semua request lain harus login dulu
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
@@ -36,7 +37,6 @@ public class SecurityConfig {
                 .successHandler(customLoginSuccessHandler)
                 .permitAll()
             )
-
             .logout(logout -> logout.permitAll());
 
         return http.build();
@@ -46,4 +46,18 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                    .allowedOrigins("http://localhost:3000")
+                    .allowedMethods("GET", "POST", "PUT", "DELETE")
+                    .allowCredentials(true);
+            }
+        };
+    }
 }
+

@@ -306,6 +306,47 @@ updatePaymentOptions();
 // Event listener saat select payment berubah
 paymentSelect.addEventListener('change', updatePaymentOptions);
 
+confirmBtn.addEventListener("click", () => {
+  const kg = parseInt(kgInput.value) || 0;
+  const deliveryCost = parseInt(document.querySelector('input[name="delivery"]:checked')?.value || 0);
+  const paymentMethod = paymentSelect.value;
+  const paymentDetail = 
+    paymentMethod === 'transfer' ? document.getElementById("bank-select").value :
+    paymentMethod === 'ewallet' ? document.getElementById("ewallet-select").value : "COD";
+
+  const total = currentPrice * kg + deliveryCost;
+
+  const orderData = {
+    service: currentService,
+    kilogram: kg,
+    deliveryCost: deliveryCost,
+    paymentMethod: paymentMethod,
+    paymentDetail: paymentDetail,
+    totalPrice: total
+  };
+
+fetch('http://localhost:8080/api/orders', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(orderData),
+  // credentials: 'include' // aktifkan jika backend perlu cookie/session
+})
+.then(res => {
+  if (res.ok) {
+    alert(`✅ Pesanan untuk ${currentService} sebanyak ${kg} kg berhasil!\nTotal: Rp${total.toLocaleString("id-ID")}`);
+    modal.style.display = "none";
+  } else {
+    alert("❌ Gagal mengirim pesanan.");
+  }
+})
+.catch(err => {
+  console.error(err);
+  alert("❌ Terjadi kesalahan saat mengirim pesanan.");
+});
+
+});
 
 
 </script>
