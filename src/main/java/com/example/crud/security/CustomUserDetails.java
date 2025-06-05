@@ -20,14 +20,33 @@ public class CustomUserDetails implements UserDetails {
         return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().toUpperCase()));
     }
 
-    @Override public String getPassword() { return user.getPassword(); }
-    @Override public String getUsername() { return user.getUsername(); }
-    @Override public boolean isAccountNonExpired() { return true; }
-    @Override public boolean isAccountNonLocked() { return true; }
-    @Override public boolean isCredentialsNonExpired() { return true; }
-    @Override public boolean isEnabled() { return true; }
-<<<<<<< HEAD
+    @Override 
+    public String getPassword() { 
+        return user.getPassword(); 
+    }
+    
+    @Override 
+    public String getUsername() { 
+        return user.getUsername(); 
+    }
+    
+    @Override 
+    public boolean isAccountNonExpired() { 
+        return true; 
+    }
+    
+    @Override 
+    public boolean isAccountNonLocked() { 
+        return true; 
+    }
+    
+    @Override 
+    public boolean isCredentialsNonExpired() { 
+        return true; 
+    }
+    
+    @Override 
+    public boolean isEnabled() { 
+        return true; 
+    }
 }
-=======
-}
->>>>>>> 5ea7ae70922e06c7c6e3045089bef903756a1be7
