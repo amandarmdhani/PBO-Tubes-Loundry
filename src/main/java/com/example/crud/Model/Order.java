@@ -16,6 +16,7 @@ public class Order {
     private String paymentMethod;
     private String paymentDetail;
     private double totalPrice;
+    private String customerName;
 
     // Getter dan Setter
 
@@ -74,4 +75,12 @@ public class Order {
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
 }
