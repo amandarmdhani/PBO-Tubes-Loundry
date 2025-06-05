@@ -2,7 +2,7 @@ body {
   margin: 0;
   font-family: 'Inter', sans-serif;
   background: linear-gradient(to bottom, #e0f2ff, #ffffff);
-  color: #1B355E;
+  color: #93B0C1;
 }
 
 .container {
@@ -23,7 +23,7 @@ header h1 {
 
 header p {
   font-size: 1.2rem;
-  color: #5A6A8A;
+  color: #93B0C1;
 }
 
 .cards {
@@ -46,17 +46,18 @@ header p {
 
 .card i {
   font-size: 2.5rem;
-  color: #0077CC;
+  color: #286284;
   margin-bottom: 1rem;
 }
 
 .card h2 {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
+  color: #286284;
 }
 
 .card p {
-  color: #6B7C93;
+  color: #93B0C1;
 }
 
 .card:hover {
@@ -81,7 +82,7 @@ header p {
   border: none;
   padding: 0.5rem 1.5rem;
   font-weight: 600;
-  color: #1B355E;
+  color: #286284;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -90,6 +91,7 @@ header p {
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: #286284;
 }
 
 .plan-content {
@@ -108,7 +110,7 @@ header p {
 
 .plan-content h3 {
   font-size: 1.5rem;
-  color: #0077CC;
+  color: #286284;
   margin-bottom: 1rem;
 }
 
@@ -131,7 +133,7 @@ header p {
 
 .testimonial-title {
   font-size: 2rem;
-  color: #0077CC;
+  color: #286284;
   margin-bottom: 2rem;
   font-weight: 600;
 }
@@ -155,13 +157,13 @@ header p {
 
 .testimonial-card p {
   font-size: 1.1rem;
-  color: #555;
+  color: #93B0C1;
   margin-bottom: 1rem;
 }
 
 .testimonial-card span {
   font-size: 1rem;
-  color: #0077CC;
+  color: #286284;
   font-weight: 600;
 }
 
@@ -170,19 +172,19 @@ header p {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-
 .cta {
   padding: 0.75rem 1.5rem;
-  background: #0077CC;
+  background: #286284;
   color: white;
   font-weight: bold;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .cta:hover {
-  background-color: #005fa3;
+  background-color: #1f4f5d;
 }
 
 footer {
@@ -191,6 +193,7 @@ footer {
   color: #888;
   font-size: 0.9rem;
 }
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -205,15 +208,17 @@ footer {
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #0077CC;
+  color: #286284;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-/* Bagian tengah untuk nav */
 .nav-links {
   list-style: none;
   display: flex;
   gap: 2rem;
-  margin: 0 auto; /* tengah horizontal */
+  margin: 0 auto;
   padding: 0;
   flex: 1;
   justify-content: center;
@@ -221,18 +226,18 @@ footer {
 
 .nav-links li a {
   text-decoration: none;
-  color: #333333;
+  color: #93B0C1;
   font-weight: 500;
   font-size: 1rem;
   transition: color 0.3s ease;
 }
 
 .nav-links li a:hover {
-  color: #0077CC;
+  color: #286284;
 }
 
 .profile-btn {
-  background-color: #0077CC;
+  background-color: #286284;
   color: #fff;
   padding: 0.5rem 1rem;
   border: none;
@@ -244,10 +249,9 @@ footer {
 }
 
 .profile-btn:hover {
-  background-color: #005fa3;
+  background-color: #1f4f5d;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .nav-links {
     display: none;
@@ -270,6 +274,113 @@ footer {
   }
 
   .profile-btn {
-    display: none; /* hide in mobile if needed */
+    display: none;
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.3s ease;
+  position: relative;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: #286284;
+}
+
+.modal-content p {
+  margin: 1rem 0 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.modal-content input[type="number"],
+.modal-content select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.modal-content input[type="radio"] {
+  margin-right: 0.5rem;
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.confirm-btn {
+  background-color: #286284;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.confirm-btn:hover {
+  background-color: #1f4f5d;
+}
+
+.close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: #888;
+}
+
+.close:hover {
+  color: #000;
+}
+
+#total-price {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #286284;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
