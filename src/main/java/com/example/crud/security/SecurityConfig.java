@@ -28,6 +28,7 @@ public class SecurityConfig {
             .csrf().disable()
             .authorizeHttpRequests(auth -> auth
 <<<<<<< HEAD
+<<<<<<< HEAD
                 .requestMatchers("/register", "/login", "/css/**", "/js/**").permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
 =======
@@ -35,15 +36,24 @@ public class SecurityConfig {
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/dashboard").hasAnyRole("ADMIN", "USER")
 >>>>>>> 2b7fae4af8aeefafe3d05b9b875fbf4fce153a0c
+=======
+                .requestMatchers("/", "/tampilanUtama", "/register", "/login", "/css/**", "/js/**").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/dashboard").hasAnyRole("ADMIN", "USER")
+>>>>>>> 5ea7ae70922e06c7c6e3045089bef903756a1be7
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
 <<<<<<< HEAD
+<<<<<<< HEAD
                 .defaultSuccessUrl("/dashboard", true)
 =======
                 .successHandler(customLoginSuccessHandler)
 >>>>>>> 2b7fae4af8aeefafe3d05b9b875fbf4fce153a0c
+=======
+                .successHandler(customLoginSuccessHandler)
+>>>>>>> 5ea7ae70922e06c7c6e3045089bef903756a1be7
                 .permitAll()
             )
             .logout(logout -> logout.permitAll());
