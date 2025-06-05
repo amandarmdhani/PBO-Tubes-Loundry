@@ -27,23 +27,14 @@ public class SecurityConfig {
             .and()
             .csrf().disable()
             .authorizeHttpRequests(auth -> auth
-<<<<<<< HEAD
-                .requestMatchers("/register", "/login", "/css/**", "/js/**").permitAll()
-                .requestMatchers("/admin/**").hasAuthority("ADMIN")
-=======
                 .requestMatchers("/", "/tampilanUtama", "/register", "/login", "/css/**", "/js/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/dashboard").hasAnyRole("ADMIN", "USER")
->>>>>>> 5ea7ae70922e06c7c6e3045089bef903756a1be7
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
-<<<<<<< HEAD
-                .defaultSuccessUrl("/dashboard", true)
-=======
                 .successHandler(customLoginSuccessHandler)
->>>>>>> 5ea7ae70922e06c7c6e3045089bef903756a1be7
                 .permitAll()
             )
             .logout(logout -> logout.permitAll());
@@ -69,4 +60,3 @@ public class SecurityConfig {
         };
     }
 }
-
