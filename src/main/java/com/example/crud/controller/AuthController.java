@@ -20,7 +20,7 @@ public class AuthController {
     // Halaman utama (landing page sebelum login)
     @GetMapping("/")
     public String tampilanUtama() {
-        return "tampilanUtama"; // pastikan file tampilanUtama.html ada di /resources/templates/
+        return "tampilanUtama"; // pastikan file tampilanUtama.html ada di resources/templates/
     }
 
     // Tampilkan halaman login
@@ -39,18 +39,22 @@ public class AuthController {
 
     // Proses registrasi
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user) {
-        System.out.println("User submitted: " + user.getUsername() + ", " + user.getName());
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        if (user.getRole() == null || user.getRole().isEmpty()) {
-            user.setRole("USER");
-        } else {
-            user.setRole(user.getRole().toUpperCase());
+    public String registerUser(@ModelAttribute User user, Model model) {
+        // cek apakah username sudah ada
+        if(userRepository.findByUsername(user.getUsername()) != null) {
+            model.addAttribute("error", "Username sudah digunakan!");
+            return "register";
         }
 
+        // set default role
+        user.setRole("user");
+
+        // encrypt password sebelum disimpan
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        // simpan user
         userRepository.save(user);
+
         return "redirect:/login";
     }
 
@@ -68,14 +72,4 @@ public class AuthController {
         model.addAttribute("error", "Username atau password salah");
         return "login";
     }
-
-        @Controller
-    public class ProfileController {
-
-        @GetMapping("/profil")
-        public String getProfilPage() {
-            return "profil"; // akan mencari profil.html di templates/
-        }
-    }
-
 }

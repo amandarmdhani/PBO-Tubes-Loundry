@@ -9,6 +9,21 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+// DTO untuk response user tanpa password
+class UserProfileDTO {
+    public Long id;
+    public String username;
+    public String name;
+    public String role;
+
+    public UserProfileDTO(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.name = user.getName();
+        this.role = user.getRole();
+    }
+}
+
 @RestController
 @RequestMapping("/api/users")
 public class UserApiController {
@@ -16,12 +31,12 @@ public class UserApiController {
     @Autowired
     private UserRepository userRepository;
 
-    // Mendapatkan user berdasarkan ID
+    // Mendapatkan user berdasarkan ID (tanpa password)
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         Optional<User> user = userRepository.findById(id);
         if(user.isPresent()) {
-            return ResponseEntity.ok(user.get());
+            return ResponseEntity.ok(new UserProfileDTO(user.get()));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
