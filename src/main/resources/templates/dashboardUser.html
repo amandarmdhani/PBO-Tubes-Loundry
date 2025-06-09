@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Clothers Laundry</title>
-  <link rel="stylesheet" href="css/dashboarduser.css" />
+  <link rel="stylesheet" th:href="@{/css/dashboarduser.css}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
@@ -12,7 +12,7 @@
 
 <nav class="navbar">
   <div class="logo">
-    <img src="img/logo.png" alt="Logo" style="height: 50px; vertical-align: middle; margin-right: 8px;">
+    <img th:src="@{/img/logo.png}" alt="Logo" style="height: 50px; vertical-align: middle; margin-right: 8px;">
   </div>
 
   <ul class="nav-links">
@@ -25,126 +25,122 @@
   <button class="profile-btn" onclick="window.location.href='/profil'">Profil</button>
 </nav>
 
+<header class="hero">
+  <img th:src="@{/img/logo.png}" alt="Ilustrasi Laundry" class="hero-image">
 
+  <div class="hero-text">
+    <h1>Selamat Datang di Clothers Laundry</h1>
+    <p>Mitra terpercaya Anda untuk cucian bersih dan wangi</p>
+  </div>
+</header>
 
-  <header class="hero">
-  <img src="/img/logo.png" alt="Ilustrasi Laundry" class="hero-image">
+<section class="cards" id="layanan">
+  <div class="card">
+    <i class="fas fa-tshirt"></i>
+    <h2>Pencucian Profesional</h2>
+    <p>Kami menangani pakaian Anda dengan peralatan dan teknik modern.</p>
+  </div>
+  <div class="card">
+    <i class="fas fa-truck"></i>
+    <h2>Antar-Jemput Gratis</h2>
+    <p>Layanan antar-jemput gratis untuk semua pesanan di atas Rp100.000.</p>
+  </div>
+  <div class="card">
+    <i class="fas fa-check-circle"></i>
+    <h2>Garansi Kepuasan</h2>
+    <p>Kepuasan pelanggan adalah prioritas kami. Dijamin 100% puas!</p>
+  </div>
+</section>
+<section class="plans" id="paket">
+  <div class="tabs">
+    <button class="tab active" data-tab="lipat" onclick="switchTab('lipat')">Cuci Kering Lipat (reguler)</button>
+    <button class="tab" data-tab="setrika" onclick="switchTab('setrika')">Cuci Kering Setrika (reguler)</button>
+    <button class="tab" data-tab="lipat-express" onclick="switchTab('lipat-express')">Cuci Kering Lipat (express)</button>
+    <button class="tab" data-tab="setrika-express" onclick="switchTab('setrika-express')">Cuci Kering Setrika (express)</button>
+  </div>
 
+  <!-- Reguler: Lipat -->
+  <div id="lipat" class="plan-content active">
+    <h3>Cuci Kering Lipat (reguler)</h3>
+    <ul>
+      <li>✓ Harga terjangkau untuk pakaian harian</li>
+      <li>✓ Proses standar 2–3 hari</li>
+      <li>Rp7.000/kg</li>
+    </ul>
+    <button class="cta" data-service="Cuci Kering Lipat (reguler)" data-price="7000">Pesan Sekarang</button>
+  </div>
 
-    <div class="hero-text">
-      <h1>Selamat Datang di Clothers Laundry</h1>
-      <p>Mitra terpercaya Anda untuk cucian bersih dan wangi</p>
+  <!-- Reguler: Setrika -->
+  <div id="setrika" class="plan-content">
+    <h3>Cuci Kering Setrika (reguler)</h3>
+    <ul>
+      <li>✓ Harga terjangkau untuk pakaian harian</li>
+      <li>✓ Proses standar 2–3 hari</li>
+      <li>✓ Termasuk layanan lipat</li>
+      <li>Rp10.000/kg</li>
+    </ul>
+    <button class="cta" data-service="Cuci Kering Setrika (reguler)" data-price="10000">Pesan Sekarang</button>
+  </div>
+
+  <!-- Express: Lipat -->
+  <div id="lipat-express" class="plan-content">
+    <h3>Cuci Kering Lipat (express)</h3>
+    <ul>
+      <li>✓ Prioritas pengerjaan cepat</li>
+      <li>✓ Selesai dalam 24 jam</li>
+      <li>Rp12.000/kg</li>
+    </ul>
+    <button class="cta" data-service="Cuci Kering Lipat (express)" data-price="12000">Pesan Sekarang</button>
+  </div>
+
+  <!-- Express: Setrika -->
+  <div id="setrika-express" class="plan-content">
+    <h3>Cuci Kering Setrika (express)</h3>
+    <ul>
+      <li>✓ Prioritas pengerjaan cepat</li>
+      <li>✓ Termasuk layanan setrika dan lipat</li>
+      <li>✓ Selesai dalam 24 jam</li>
+      <li>Rp15.000/kg</li>
+    </ul>
+    <button class="cta" data-service="Cuci Kering Setrika (express)" data-price="15000">Pesan Sekarang</button>
+  </div>
+</section>
+
+<section class="testimonial" id="testimoni">
+<h2 class="testimonial-title">Apa Kata Pelanggan Kami</h2>
+<div class="testimonial-container">
+    <div class="testimonial-card">
+    <p>"Clothers sangat membantu! Layanan cepat dan pakaian saya harum!"</p>
+    <span>- Sarah, Jakarta</span>
     </div>
-  </header>
-
-  <section class="cards" id="layanan">
-    <div class="card">
-      <i class="fas fa-tshirt"></i>
-      <h2>Pencucian Profesional</h2>
-      <p>Kami menangani pakaian Anda dengan peralatan dan teknik modern.</p>
+    <div class="testimonial-card">
+    <p>"Antar-jemput yang praktis. Kualitasnya luar biasa."</p>
+    <span>- Andi, Bandung</span>
     </div>
-    <div class="card">
-      <i class="fas fa-truck"></i>
-      <h2>Antar-Jemput Gratis</h2>
-      <p>Layanan antar-jemput gratis untuk semua pesanan di atas Rp100.000.</p>
+    <div class="testimonial-card">
+    <p>"Sangat puas dengan pelayanan yang cepat dan hasil yang sempurna!"</p>
+    <span>- Lila, Surabaya</span>
     </div>
-    <div class="card">
-      <i class="fas fa-check-circle"></i>
-      <h2>Garansi Kepuasan</h2>
-      <p>Kepuasan pelanggan adalah prioritas kami. Dijamin 100% puas!</p>
+</div>
+</section>
+
+<footer id="kontak">
+  <div class="footer-container">
+    <div class="footer-about">
+      <h3>Clothers Laundry</h3>
+      <p>Mitra Anda untuk layanan laundry berkualitas di kota Anda.</p>
     </div>
-  </section>
-    <section class="plans" id="paket">
-      <div class="tabs">
-        <button class="tab active" data-tab="lipat" onclick="switchTab('lipat')">Cuci Kering Lipat (reguler)</button>
-        <button class="tab" data-tab="setrika" onclick="switchTab('setrika')">Cuci Kering Setrika (reguler)</button>
-        <button class="tab" data-tab="lipat-express" onclick="switchTab('lipat-express')">Cuci Kering Lipat (express)</button>
-        <button class="tab" data-tab="setrika-express" onclick="switchTab('setrika-express')">Cuci Kering Setrika (express)</button>
-      </div>
-
-      <!-- Reguler: Lipat -->
-      <div id="lipat" class="plan-content active">
-        <h3>Cuci Kering Lipat (reguler)</h3>
-        <ul>
-          <li>✓ Harga terjangkau untuk pakaian harian</li>
-          <li>✓ Proses standar 2–3 hari</li>
-          <li>Rp7.000/kg</li>
-        </ul>
-        <button class="cta" data-service="Cuci Kering Lipat (reguler)" data-price="7000">Pesan Sekarang</button>
-      </div>
-
-      <!-- Reguler: Setrika -->
-      <div id="setrika" class="plan-content">
-        <h3>Cuci Kering Setrika (reguler)</h3>
-        <ul>
-          <li>✓ Harga terjangkau untuk pakaian harian</li>
-          <li>✓ Proses standar 2–3 hari</li>
-          <li>✓ Termasuk layanan lipat</li>
-          <li>Rp10.000/kg</li>
-        </ul>
-        <button class="cta" data-service="Cuci Kering Setrika (reguler)" data-price="10000">Pesan Sekarang</button>
-      </div>
-
-      <!-- Express: Lipat -->
-      <div id="lipat-express" class="plan-content">
-        <h3>Cuci Kering Lipat (express)</h3>
-        <ul>
-          <li>✓ Prioritas pengerjaan cepat</li>
-          <li>✓ Selesai dalam 24 jam</li>
-          <li>Rp12.000/kg</li>
-        </ul>
-        <button class="cta" data-service="Cuci Kering Lipat (express)" data-price="12000">Pesan Sekarang</button>
-      </div>
-
-      <!-- Express: Setrika -->
-      <div id="setrika-express" class="plan-content">
-        <h3>Cuci Kering Setrika (express)</h3>
-        <ul>
-          <li>✓ Prioritas pengerjaan cepat</li>
-          <li>✓ Termasuk layanan setrika dan lipat</li>
-          <li>✓ Selesai dalam 24 jam</li>
-          <li>Rp15.000/kg</li>
-        </ul>
-        <button class="cta" data-service="Cuci Kering Setrika (express)" data-price="15000">Pesan Sekarang</button>
-      </div>
-    </section>
-
-    <section class="testimonial" id="testimoni">
-    <h2 class="testimonial-title">Apa Kata Pelanggan Kami</h2>
-    <div class="testimonial-container">
-        <div class="testimonial-card">
-        <p>"Clothers sangat membantu! Layanan cepat dan pakaian saya harum!"</p>
-        <span>- Sarah, Jakarta</span>
-        </div>
-        <div class="testimonial-card">
-        <p>"Antar-jemput yang praktis. Kualitasnya luar biasa."</p>
-        <span>- Andi, Bandung</span>
-        </div>
-        <div class="testimonial-card">
-        <p>"Sangat puas dengan pelayanan yang cepat dan hasil yang sempurna!"</p>
-        <span>- Lila, Surabaya</span>
-        </div>
+    <div class="footer-contact">
+      <h4>Hubungi Kami</h4>
+      <p>Email: support@Clothers.com</p>
+      <p>Telepon: +62 812 3456 7890</p>
+      <p>Alamat: Jl. Bersih No. 1, Jakarta</p>
     </div>
-    </section>
+  </div>
+  <p class="copyright">&copy; 2025 Clothers Laundry. Hak cipta dilindungi.</p>
+</footer>
 
-
-  <footer id="kontak">
-    <div class="footer-container">
-      <div class="footer-about">
-        <h3>Clothers Laundry</h3>
-        <p>Mitra Anda untuk layanan laundry berkualitas di kota Anda.</p>
-      </div>
-      <div class="footer-contact">
-        <h4>Hubungi Kami</h4>
-        <p>Email: support@Clothers.com</p>
-        <p>Telepon: +62 812 3456 7890</p>
-        <p>Alamat: Jl. Bersih No. 1, Jakarta</p>
-      </div>
-    </div>
-    <p class="copyright">&copy; 2025 Clothers Laundry. Hak cipta dilindungi.</p>
-  </footer>
-
-  <!-- Modal -->
+<!-- Modal -->
 <div id="modal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>

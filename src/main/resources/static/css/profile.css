@@ -1,0 +1,258 @@
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(to bottom, #e0f2ff, #ffffff);
+    color: #93B0C1;
+}
+
+.profile-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.profile-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: #286284;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.profile-title i {
+    font-size: 2rem;
+}
+
+.profile-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.profile-sidebar {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-sidebar:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    display: block;
+    object-fit: cover;
+    border: 3px solid #286284;
+}
+
+.profile-info {
+    margin-bottom: 1.5rem;
+}
+
+.profile-name {
+    font-size: 1.25rem;
+    color: #286284;
+    margin-bottom: 0.5rem;
+}
+
+.profile-username {
+    color: #93B0C1;
+    margin-bottom: 1rem;
+}
+
+.profile-role {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #D7EBFF;
+    color: #286284;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.btn-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.btn-profile i {
+    font-size: 1.1rem;
+}
+
+.btn-primary {
+    background: #286284;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #1f4f5d;
+}
+
+.btn-danger {
+    background: #ea4335;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #d33426;
+}
+
+.profile-main {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    width: 300px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-main:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.profile-section {
+    margin-bottom: 1.5rem;
+}
+
+.profile-section:last-child {
+    margin-bottom: 0;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    color: #286284;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-title i {
+    color: #286284;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.detail-label {
+    font-weight: 500;
+    color: #93B0C1;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-value {
+    color: #286284;
+    font-size: 1rem;
+}
+
+/* Alert Messages */
+.alert {
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.alert i {
+    font-size: 1.2rem;
+}
+
+.alert-success {
+    border-left: 4px solid #34a853;
+}
+
+.alert-success i {
+    color: #34a853;
+}
+
+.alert-error {
+    border-left: 4px solid #ea4335;
+}
+
+.alert-error i {
+    color: #ea4335;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 1rem;
+    }
+
+    .profile-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-sidebar,
+    .profile-main {
+        width: 100%;
+        max-width: 400px;
+    }
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.profile-content {
+    animation: fadeIn 0.3s ease;
+} 

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Admin Clothers Laundry</title>
-  <link rel="stylesheet" href="css/dashboardadmin.css" />
+  <link rel="stylesheet" th:href="@{/css/dashboardadmin.css}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
@@ -15,7 +15,7 @@
   <!-- Navbar Admin -->
   <nav class="navbar">
     <div class="logo">
-      <img src="img/logo.png" alt="Logo" style="height: 50px; vertical-align: middle; margin-right: 8px;">
+      <img th:src="@{/img/logo.png}" alt="Logo" style="height: 50px; vertical-align: middle; margin-right: 8px;">
     </div>
     <ul class="nav-links">
       <li><a href="#orders">Pesanan</a></li>
@@ -27,7 +27,7 @@
 
   <!-- Hero Section for Admin -->
   <header class="hero">
-    <img src="/img/logo.png" alt="Ilustrasi Laundry" class="hero-image">
+    <img th:src="@{/img/logo.png}" alt="Ilustrasi Laundry" class="hero-image">
     <div class="hero-text">
       <h1>Selamat Datang di Dashboard Admin Clothers Laundry</h1>
       <p>Kelola pesanan, pengguna, dan pengaturan layanan laundry.</p>

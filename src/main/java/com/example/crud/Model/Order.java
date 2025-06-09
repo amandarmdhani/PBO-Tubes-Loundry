@@ -17,6 +17,7 @@ public class Order {
     private String paymentDetail;
     private double totalPrice;
     private String customerName;
+    private String status = "PENDING"; // Default status
 
     // Getter dan Setter
 
@@ -81,6 +82,14 @@ public class Order {
     }
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 }

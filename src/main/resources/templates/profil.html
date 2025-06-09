@@ -1,102 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>User Profile</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/profil.css" />
+  <link rel="stylesheet" th:href="@{/css/profil.css}" />
 </head>
 <body>
-  <div class="container">
-    <div class="left-panel">
+  <main class="container">
+    <!-- Left Panel -->
+    <aside class="left-panel">
       <h2>PROFILE</h2>
-      <div class="avatar"><i class="fas fa-user"></i></div>
+
+      <div class="avatar">
+        <i class="fas fa-user"></i>
+      </div>
       <button class="upload-btn" type="button">Upload Picture</button>
+
+      <!-- Navigation Buttons -->
+      <div class="action-buttons">
+        <a href="/orders" class="btn btn-success">
+          <i class="fas fa-shopping-bag"></i> Lihat Pesanan
+        </a>
+        <a href="/dashboard" class="btn btn-primary">
+          <i class="fas fa-home"></i> Kembali ke Dashboard
+        </a>
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </form>
+      </div>
+
+      <!-- Social Links -->
       <div class="social-links">
-        <div class="social-link facebook"><i class="fab fa-facebook"></i><span>Add Facebook</span></div>
-        <div class="social-link twitter"><i class="fab fa-twitter"></i><span>Add Twitter</span></div>
-        <div class="social-link instagram"><i class="fab fa-instagram"></i><span>Add Instagram</span></div>
-        <div class="social-link googleplus"><i class="fab fa-google-plus-g"></i><span>Add Google+</span></div>
-      </div>
-    </div>
-
-    <div class="right-panel">
-      <div class="form-group">
-        <label for="username">Username:</label>
-        <input id="username" type="text" />
-      </div>
-      <div class="form-group">
-        <label for="email">E-mail:</label>
-        <input id="email" type="email" />
-      </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input id="password" type="password" />
-      </div>
-      <div class="form-group">
-        <label for="repeat-password">Repeat Password:</label>
-        <input id="repeat-password" type="password" />
-      </div>
-      <div class="form-group">
-        <label for="about">About Me:</label>
-        <textarea id="about" rows="3"></textarea>
-      </div>
-
-      <div class="buttons">
-        <button class="btn-primary" type="button">Update Information</button>
-        <button class="btn-secondary" type="button">List Orders</button>
-
-        <div id="order-section" style="margin-top: 30px; display: none;">
-          <h3>User Orders:</h3>
-          <ul id="order-list"></ul>
+        <div class="social-link facebook">
+          <i class="fab fa-facebook"></i> <span>Add Facebook</span>
+        </div>
+        <div class="social-link twitter">
+          <i class="fab fa-twitter"></i> <span>Add Twitter</span>
+        </div>
+        <div class="social-link instagram">
+          <i class="fab fa-instagram"></i> <span>Add Instagram</span>
+        </div>
+        <div class="social-link googleplus">
+          <i class="fab fa-google-plus-g"></i> <span>Add Google+</span>
         </div>
       </div>
-    </div>
-  </div>
+    </aside>
 
-<script>
-  const userId = localStorage.getItem('userId');
-  if (!userId) {
-    alert('Anda belum login, silakan login terlebih dahulu.');
-    window.location.href = '/login'; // Ganti ke /login, bukan login.html
-  }
+    <!-- Right Panel -->
+    <section class="right-panel">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input id="username" type="text" th:value="${user.username}" readonly />
+      </div>
 
-  // Ambil data user dari backend
-  fetch(`/api/users/${userId}`)
-    .then(res => {
-      if (!res.ok) throw new Error('Failed to fetch user data');
-      return res.json();
-    })
-    .then(user => {
-      document.getElementById('username').value = user.username;
-      document.getElementById('email').value = user.email;
-      document.getElementById('password').value = '';  // kosongkan password
-      document.getElementById('repeat-password').value = '';
-      document.getElementById('about').value = user.about || '';
-    })
-    .catch(() => alert('Gagal mengambil data user.'));
+      <div class="form-group">
+        <label for="name">Nama:</label>
+        <input id="name" type="text" th:value="${user.name}" readonly />
+      </div>
 
-  // Event tombol list orders
-  document.querySelector('.btn-secondary').addEventListener('click', () => {
-    fetch(`/api/orders/user/${userId}`)
-      .then(res => res.json())
-      .then(data => {
-        const list = document.getElementById('order-list');
-        list.innerHTML = '';
-        if (data.length === 0) {
-          list.innerHTML = '<li>No orders found.</li>';
-        } else {
-          data.forEach(order => {
-            const li = document.createElement('li');
-            li.textContent = `#${order.id} - ${order.service} (${order.status})`;
-            list.appendChild(li);
-          });
-        }
-        document.getElementById('order-section').style.display = 'block';
-      })
-      .catch(err => console.error('Fetch error:', err));
-  });
-</script>
+      <div class="form-group">
+        <label for="role">Role:</label>
+        <input id="role" type="text" th:value="${user.role}" readonly />
+      </div>
+    </section>
+  </main>
 </body>
 </html>
