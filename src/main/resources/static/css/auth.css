@@ -1,0 +1,211 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f7f9fc;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.auth-wrapper {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.auth-left {
+    flex: 1.2; /* Sedikit lebih besar dari form */
+    background: url('https://img.freepik.com/premium-photo/towel-basket-background-wash-room_488220-4888.jpg?w=360') no-repeat center center;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    padding: 40px;
+}
+
+.auth-left::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(40, 98, 132, 0.68) 0%, rgba(31, 79, 93, 0.9) 100%);
+    z-index: 1;
+}
+
+.auth-left-content {
+    position: relative;
+    z-index: 2;
+    max-width: 450px;
+}
+
+.auth-left-content h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.auth-left-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.auth-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    /* PERBAIKAN: Padding dikurangi agar kartu lebih pendek */
+    padding: 2rem 2.5rem; 
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.auth-logo {
+    width: 120px; /* Logo sedikit diperkecil */
+    height: auto;
+    /* PERBAIKAN: Margin bawah dikurangi */
+    margin-bottom: 1.2rem; 
+}
+
+.auth-title {
+    font-size: 1.5rem; /* Judul sedikit diperkecil */
+    font-weight: 700;
+    color: #1a3a53;
+    /* PERBAIKAN: Margin bawah dikurangi */
+    margin-bottom: 1.5rem; 
+}
+
+.auth-form {
+    width: 100%;
+}
+
+.form-group {
+    position: relative;
+    /* PERBAIKAN: Jarak antar grup form dikurangi */
+    margin-bottom: 1.2rem; 
+}
+
+.form-group .icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ced4da;
+    transition: color 0.3s ease;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px 18px 14px 50px;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #495057;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    border-color: #286284;
+    background-color: white;
+    box-shadow: 0 0 0 4px rgba(40, 98, 132, 0.1);
+    outline: none;
+}
+
+.form-group input:focus + .icon {
+    color: #286284;
+}
+
+.btn-auth {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #286284 0%, #1f4f5d 100%);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.8rem; /* Jarak atas tombol dikurangi */
+}
+
+.btn-auth:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 98, 132, 0.25);
+}
+
+.auth-switch {
+    /* PERBAIKAN: Jarak atas dikurangi */
+    margin-top: 1.5rem; 
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.auth-switch a {
+    color: #286284;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
+.error-msg {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    margin-bottom: 1.2rem; /* Margin disesuaikan */
+    font-size: 0.9rem;
+}
+
+.success-msg {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px;
+    margin-top: 10px;
+    margin-bo: 10px;
+    border-radius: 6px;
+    border: 1px solid #c3e6cb;
+    font-size: 14px;
+    text-align: center;
+}
+
+
+@media (max-width: 992px) {
+    .auth-left {
+        display: none;
+    }
+
+    .auth-right {
+        flex: 1;
+        background: linear-gradient(135deg, #286284 0%, #1f4f5d 100%);
+        align-items: flex-start;
+        padding: 5vh 20px; /* Padding atas dikurangi agar card lebih ke atas */
+        overflow-y: auto;
+    }
+
+    .auth-card {
+        box-shadow: none;
+        border: none;
+    }
+}
