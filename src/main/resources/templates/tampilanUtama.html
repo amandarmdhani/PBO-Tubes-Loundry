@@ -1,57 +1,90 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Clothers - Laundry Praktis dan Cepat</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/tampilanUtama.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clothers - Solusi Laundry Profesional Anda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/tampilanUtama.css}" />
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
 </head>
 <body>
 
-  <div class="container">
+    <div th:replace="~{fragments/navbar :: navbarLogoOnly}"></div>
 
-    <!-- Hero Section -->
-    <section class="hero" aria-label="Hero introduction">
-      <h1>Welcome To<br>Clothers</h1>
-      <p>Kami hadir untuk membuat hidup Anda lebih nyaman.<br />
-      Nikmati layanan laundry harian, express, dan antar-jemput dari rumah Anda.<br />
-      Cukup pesan, kami yang urus cucian Anda!</p>
+    <main>
+        <section class="hero" id="hero" aria-label="Selamat Datang di Clothers">
+            <div class="container hero__container">
+                <div class="hero__content">
+                    <h1 class="hero__title">Pakaian Bersih, Hidup Lebih Mudah</h1>
+                    <p class="hero__subtitle">
+                        Clothers adalah solusi laundry modern untuk Anda yang sibuk. Kami menawarkan layanan antar-jemput, cuci, dan setrika berkualitas tinggi, agar Anda punya lebih banyak waktu untuk hal yang penting.
+                    </p>
+                    <a th:href="@{/login}" class="btn btn--primary btn--large" role="button">Pesan Sekarang</a>
+                </div>
+                <div class="hero__image">
+                     <img src="https://bandungasyik.com/wp-content/uploads/2024/02/Rekomendasi-Laundry-Self-Service-di-Bandung.jpg" alt="Wanita bahagia dengan pakaian bersih">
+                </div>
+            </div>
+        </section>
 
-      <div class="buttons">
-        <a href="/login" class="login-btn" role="button" aria-label="Login ke Clothers">Log In</a>
-        <a href="/register" class="register-btn" role="button" aria-label="Daftar akun baru di Clothers">Register</a>
-      </div>
-    </section>
+        <section class="services" id="services" aria-label="Layanan Kami">
+            <div class="container">
+                <h2 class="section__title">Layanan Profesional Kami</h2>
+                <p class="section__subtitle">Pilih paket yang paling sesuai dengan kebutuhan Anda.</p>
+                <div class="services__grid">
+                    <div class="card" role="group">
+                        <img src="https://www.realsimple.com/thmb/lEk5Qokq8nuhwvjcqHNaWFJhpx0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/ultimate-guide-to-laundry-GettyImages-1318399310-a636429e8e9948aca141c3cc5ef679d2.jpg" alt="Pakaian dilipat rapi" class="card__img" />
+                        <div class="card__content">
+                            <h3 class="card__title">Laundry Kiloan</h3>
+                            <p class="card__description">Cocok untuk cucian harian Anda. Bersih, wangi, dan dilipat rapi. Proses cepat dan terpercaya.</p>
+                        </div>
+                    </div>
+                    <div class="card" role="group">
+                        <img src="https://img.freepik.com/premium-photo/self-service-laundry-with-dryer-machines-backdrop-young-woman-enjoys-clean-ironed-garments_28914-3190.jpg" alt="Mesin cuci modern" class="card__img" />
+                        <div class="card__content">
+                            <h3 class="card__title">Layanan Express</h3>
+                            <p class="card__description">Butuh pakaian bersih dengan cepat? Layanan express kami menjamin cucian selesai dalam hitungan jam.</p>
+                        </div>
+                    </div>
+                    <div class="card" role="group">
+                        <img src="https://www.businessblogshub.com/wp-content/uploads/2023/05/delivery-service.webp" alt="Kurir mengantar laundry" class="card__img" />
+                        <div class="card__content">
+                            <h3 class="card__title">Antar-Jemput Gratis</h3>
+                            <p class="card__description">Kami jemput pakaian kotor dan antarkan kembali dalam keadaan bersih. Praktis tanpa keluar rumah.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- Gallery Section -->
-    <section class="gallery" aria-label="Produk dan layanan kami" id="gallery">
-      <div class="card movable" tabindex="0" role="group" aria-label="Produk Nordar Lamp">
-        <img src="/static/images/Baju.png" alt="Baju" />
-        <p>Nordar Lamp - $84.00</p>
-      </div>
-      <div class="card movable" tabindex="0" role="group" aria-label="Modern Sofa">
-        <img src="/images/sofa.png" alt="Sofa" />
-        <p>Modern Sofa - $399.00</p>
-      </div>
-      <div class="card movable" tabindex="0" role="group" aria-label="Konsultasi dengan desainer interior">
-        <img src="/images/woman.png" alt="Consult" />
-        <p>Consult With Our Interior Designers</p>
-      </div>
-    </section>
+        <section class="how-it-works" id="how-it-works" aria-label="Bagaimana Kami Bekerja">
+             <div class="container">
+                <h2 class="section__title">3 Langkah Mudah Menuju Pakaian Bersih</h2>
+                <div class="how__steps">
+                    <div class="step">
+                        <div class="step__icon"><i class="fas fa-calendar-check"></i></div>
+                        <h3 class="step__title">1. Pesan Online</h3>
+                        <p>Pilih layanan dan jadwalkan penjemputan melalui aplikasi atau website kami.</p>
+                    </div>
+                     <div class="step">
+                        <div class="step__icon"><i class="fas fa-truck"></i></div>
+                        <h3 class="step__title">2. Kami Jemput</h3>
+                        <p>Tim kami akan datang ke lokasi Anda sesuai jadwal untuk mengambil pakaian kotor.</p>
+                    </div>
+                     <div class="step">
+                        <div class="step__icon"><i class="fas fa-box-open"></i></div>
+                        <h3 class="step__title">3. Terima Bersih</h3>
+                        <p>Pakaian Anda kami proses secara profesional dan antarkan kembali dalam keadaan bersih dan wangi.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-    <!-- Unified Purple Box Section -->
-    <section class="content-box" id="content-box" aria-live="polite" aria-label="Konten dinamis">
-      <div class="content-images" id="content-images">
-        <!-- Foto akan pindah ke sini saat scroll -->
-      </div>
-    </section>
-
-  </div>
-
-<script>
-  // Script tetap sama, bisa kamu inject sesuai kebutuhan
-</script>
+    <div th:replace="~{fragments/footer :: footer-user}"></div>
 
 </body>
 </html>

@@ -40,4 +40,4 @@ public class DataInitializer implements CommandLineRunner {
 
         // Anda bisa menambahkan data lain di sini
     }
-}
+} 

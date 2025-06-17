@@ -1,229 +1,171 @@
-/* Reset & Global */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* =================================================================
+   Dashboard Admin - Clothers Laundry
+   ================================================================= */
+
+/* 1. Variables & Global Styles
+----------------------------------------------------------------- */
+:root {
+    --primary-color: #286284;
+    --primary-hover: #142a4a;
+    --primary-light: rgba(27, 53, 94, 0.1);
+    --success-light: #d1e7dd;
+    --success-dark: #0f5132;
+    --info-light: #cff4fc;
+    --info-dark: #055160;
+    --warning-light: #fff3cd;
+    --warning-dark: #664d03;
+    --danger-light: #f8d7da;
+    --danger-dark: #842029;
+    --bg-color: #f8f9fa;
+    --card-bg: #ffffff;
+    --text-dark: #212529;
+    --text-muted: #6c757d;
+    --border-color: #e9ecef;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background: linear-gradient(to bottom, #e0f2ff, #ffffff);
-  color: #93B0C1;
-  line-height: 1.6;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
 }
 
-/* Navbar */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: transparent;
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+.main-container {
+    padding: 2rem;
 }
 
-.navbar .logo img {
-  height: 40px;
+/* 2. Header & Main Button
+----------------------------------------------------------------- */
+.dashboard-header .h2 {
+    color: var(--primary-color);
 }
 
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 2rem;
-  flex: 1;
-  justify-content: center;
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(27, 53, 94, 0.2);
 }
 
-.nav-links a {
-  color: #93B0C1;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-  transition: color 0.3s ease;
+.btn-primary:hover {
+    background-color: var(--primary-hover) !important;
+    border-color: var(--primary-hover) !important;
+    box-shadow: 0 6px 16px rgba(27, 53, 94, 0.25);
 }
 
-.nav-links a:hover {
-  color: #286284;
+/* 3. Statistik Cards
+----------------------------------------------------------------- */
+.stat-card {
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    background-color: var(--card-bg);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.profile-btn {
-  background-color: #286284;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08) !important;
 }
 
-.profile-btn:hover {
-  background-color: #1f4f5d;
-}
-
-/* Hero Section */
-.hero {
-  background-color: #dff0fb;
-  padding: 2rem;
-  text-align: center;
-}
-
-.hero-image {
-  width: 80px;
-  margin-bottom: 1rem;
-}
-
-.hero-text h1 {
-  font-size: 2rem;
-  color: #286284;
-  margin-bottom: 0.5rem;
-}
-
-.edit-btn {
-  margin-top: 0.5rem;
-  background-color: #286284;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-/* Cards Section */
-.order-list, .user-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: center;
-  margin-bottom: 2rem;
-}
-
-.order-card, .user-card {
-  background: white;
-  border-radius: 16px;
-  padding: 1.5rem;
-  width: 280px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.order-card:hover, .user-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-}
-
-.btn {
-  background-color: #286284;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  margin-top: 0.5rem;
-}
-
-/* Summary Cards */
-.summary-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  padding: 2rem 1rem;
-}
-
-.summary-card {
-  background-color: #f0f6fa;
-  border-radius: 12px;
-  padding: 1.5rem;
-  text-align: center;
-  width: 200px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.summary-card h4 {
-  color: #286284;
-  margin-bottom: 0.5rem;
-}
-
-/* Chart */
-.chart-container {
-  max-width: 600px;
-  padding: 1rem;
-  background-color: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  margin-top: 2rem;
-}
-
-canvas {
-  display: block;
-  max-height: 400px;
-}
-
-/* Progress Bar */
-.progress-container {
-  padding: 2rem;
-}
-
-.progress-bar {
-  background-color: #e0e0e0;
-  border-radius: 12px;
-  overflow: hidden;
-  height: 24px;
-}
-
-.progress {
-  background-color: #286284;
-  height: 100%;
-  color: white;
-  text-align: center;
-  line-height: 24px;
-  font-weight: bold;
-  transition: width 0.4s ease;
-}
-
-/* Footer */
-footer {
-  background-color: #ffffff;
-  color: #93B0C1;
-  padding: 2rem;
-  text-align: center;
-  font-size: 0.9rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .profile-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .summary-cards {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .order-list, .user-list {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    background-color: white;
-    width: 100%;
-    left: 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .nav-links.active {
+.stat-card .icon-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
     display: flex;
-  }
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+/* Custom icon colors to match the theme */
+.icon-primary { background-color: var(--primary-light); color: var(--primary-color); }
+.icon-success { background-color: var(--success-light); color: var(--success-dark); }
+.icon-info { background-color: var(--info-light); color: var(--info-dark); }
+.icon-warning { background-color: var(--warning-light); color: var(--warning-dark); }
+
+/* 4. Table Styles
+----------------------------------------------------------------- */
+.card-table {
+    border: none;
+    border-radius: 0.75rem;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+.table th {
+    font-weight: 600;
+    color: var(--text-muted);
+    border-top: none;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table td, .table th {
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.product-image-thumbnail {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+/* 5. Badge & Button Styles
+----------------------------------------------------------------- */
+.badge.rounded-pill {
+    font-size: 0.8em;
+    padding: 0.4em 0.8em;
+    font-weight: 500;
+}
+
+/* PERBAIKAN: Menambahkan kelas status kustom untuk badge */
+.status-completed { background-color: var(--success-light); color: var(--success-dark); }
+.status-processing { background-color: var(--info-light); color: var(--info-dark); }
+.status-pending { background-color: var(--warning-light); color: var(--warning-dark); }
+.status-cancelled { background-color: var(--danger-light); color: var(--danger-dark); }
+.status-active { background-color: var(--success-light); color: var(--success-dark); }
+.status-inactive { background-color: #e9ecef; color: #495057; }
+
+
+.btn-icon {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid transparent;
+}
+.btn-outline-secondary {
+    border-color: #ced4da;
+    color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* 6. Modal Styles
+----------------------------------------------------------------- */
+.modal-header, .modal-footer {
+    border: none;
+}
+
+.modal-content {
+    border-radius: 0.75rem;
+    border: none;
 }

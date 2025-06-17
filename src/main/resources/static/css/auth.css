@@ -183,12 +183,24 @@ body, html {
     color: #155724;
     padding: 12px;
     margin-top: 10px;
-    margin-bo: 10px;
+    margin-bottom: 10px;
     border-radius: 6px;
     border: 1px solid #c3e6cb;
     font-size: 14px;
     text-align: center;
 }
+
+        .password-container {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+        }
 
 
 @media (max-width: 992px) {

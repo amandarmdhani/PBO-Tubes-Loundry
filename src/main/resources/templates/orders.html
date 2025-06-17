@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Pesanan</title>
+    <link rel="stylesheet" th:href="@{/css/orders.css}" />
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+</head>
+<body>
+    <!-- Include Navbar Fragment -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div class="container">
+        <div class="orders-header">
+            <h1>Daftar Pesanan</h1>
+        </div>
+
+        <!-- Alert Messages -->
+        <div th:if="${successMessage}" class="alert alert-success" role="alert">
+            <span th:text="${successMessage}"></span>
+        </div>
+        <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+            <span th:text="${errorMessage}"></span>
+        </div>
+
+        <!-- No Orders Message -->
+        <div th:if="${#lists.isEmpty(orders)}" class="no-orders">
+            <p>Belum ada pesanan.</p>
+        </div>
+
+        <!-- Orders List -->
+        <div class="orders-list" th:if="${not #lists.isEmpty(orders)}">
+            <div style="display:flex;gap:10px;margin-bottom:18px;">
+                <a th:href="@{/profil}" class="btn btn-secondary"><i class="fas fa-user"></i> Profil</a>
+                <a th:href="@{/dashboard}" class="btn btn-primary"><i class="fas fa-home"></i> Dashboard</a>
+            </div>
+            <table class="orders-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Layanan</th>
+                        <th>Berat (kg)</th>
+                        <th>Metode Pembayaran</th>
+                        <th>Detail Pembayaran</th>
+                        <th>Biaya Pengiriman</th>
+                        <th>Total Pembayaran</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="order, iterStat : ${orders}">
+                        <td th:text="${iterStat.index + 1}"></td>
+                        <td th:text="${order.service}"></td>
+                        <td th:text="${order.kilogram}"></td>
+                        <td th:text="${order.paymentMethod}"></td>
+                        <td th:text="${order.paymentDetail}"></td>
+                        <td th:text="${#numbers.formatDecimal(order.deliveryCost, 0, 'COMMA', 0, 'POINT')}"></td>
+                        <td th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT')}"></td>
+                        <td th:text="${order.status}"></td>
+                        <td>
+                            <form th:action="@{/orders/{id}/cancel(id=${order.id})}" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-warning btn-sm" onclick="return confirm('Apakah Anda yakin ingin membatalkan pesanan ini?')">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </form>
+                        
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+    <div th:replace="~{fragments/footer :: footer-user}"></div>
+</body>
+</html>  

@@ -1,102 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>User Profile</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/profil.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Pengguna</title>
+    <link rel="stylesheet" th:href="@{/css/profil.css}" />
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <!-- Add Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-  <div class="container">
-    <div class="left-panel">
-      <h2>PROFILE</h2>
-      <div class="avatar"><i class="fas fa-user"></i></div>
-      <button class="upload-btn" type="button">Upload Picture</button>
-      <div class="social-links">
-        <div class="social-link facebook"><i class="fab fa-facebook"></i><span>Add Facebook</span></div>
-        <div class="social-link twitter"><i class="fab fa-twitter"></i><span>Add Twitter</span></div>
-        <div class="social-link instagram"><i class="fab fa-instagram"></i><span>Add Instagram</span></div>
-        <div class="social-link googleplus"><i class="fab fa-google-plus-g"></i><span>Add Google+</span></div>
-      </div>
-    </div>
+    <th:block th:switch="${user.role}">
+        <th:block th:case="'USER'">
+            <div th:replace="~{fragments/navbar :: navbarDashboadLogoUser}"></div>
+        </th:block>
+        <th:block th:case="'ADMIN'">
+            <div th:replace="~{fragments/navbar :: navbarDashboadLogoAdmin}"></div>
+        </th:block>
+        <th:block th:case="*">
+            <div th:replace="~{fragments/navbar :: navbar}"></div>
+        </th:block>
+    </th:block>
 
-    <div class="right-panel">
-      <div class="form-group">
-        <label for="username">Username:</label>
-        <input id="username" type="text" />
-      </div>
-      <div class="form-group">
-        <label for="email">E-mail:</label>
-        <input id="email" type="email" />
-      </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input id="password" type="password" />
-      </div>
-      <div class="form-group">
-        <label for="repeat-password">Repeat Password:</label>
-        <input id="repeat-password" type="password" />
-      </div>
-      <div class="form-group">
-        <label for="about">About Me:</label>
-        <textarea id="about" rows="3"></textarea>
-      </div>
-
-      <div class="buttons">
-        <button class="btn-primary" type="button">Update Information</button>
-        <button class="btn-secondary" type="button">List Orders</button>
-
-        <div id="order-section" style="margin-top: 30px; display: none;">
-          <h3>User Orders:</h3>
-          <ul id="order-list"></ul>
+    <div class="container">
+        <div class="profile-header">
+            <h1>Profil Pengguna</h1>
         </div>
-      </div>
+
+                <!-- Alert Messages -->
+        <div th:if="${successMessage}" class="alert alert-success">
+            <span class="alert-icon">✓</span>
+            <span th:text="${successMessage}"></span>
+        </div>
+        <div th:if="${errorMessage}" class="alert alert-error">
+            <span class="alert-icon">!</span>
+            <span th:text="${errorMessage}"></span>
+        </div>
+
+        <div class="profile-content">
+            <form th:action="@{/profil}" method="post" class="edit-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" th:value="${user.username}" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Nama</label>
+                    <input type="text" id="name" name="name" th:value="${user.name}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" th:value="${user.email}" required>
+                </div>
+
+                <div class="form-group password-group">
+                    <label for="password">Password Baru</label>
+                    <div class="password-input-container">
+                        <input type="password" id="password" name="password" placeholder="Kosongkan jika tidak ingin mengubah password">
+                        <i class="bi bi-eye-slash toggle-password" onclick="togglePasswordVisibility()"></i>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn-primary">Simpan Perubahan</button>
+                    <a th:href="@{/orders}" class="btn-orders" th:if="${user.role != 'ADMIN'}">Lihat Pesanan</a>
+                    <a th:href="@{/logout}" class="btn-logout">Logout</a>
+                </div>
+            </form>
+        </div>
+
     </div>
-  </div>
 
-<script>
-  const userId = localStorage.getItem('userId');
-  if (!userId) {
-    alert('Anda belum login, silakan login terlebih dahulu.');
-    window.location.href = '/login'; // Ganti ke /login, bukan login.html
-  }
+    <!-- Footer untuk USER -->
+    <th:block th:switch="${user.role}">
+        <th:block th:case="'USER'">
+            <div th:replace="~{fragments/footer :: footer-user}"></div>
+        </th:block>
+        <th:block th:case="'ADMIN'">
+            <div th:replace="~{fragments/footer :: footer-admin}"></div>
+        </th:block>
+        <th:block th:case="*">
+            <div th:replace="~{fragments/footer :: footer-default}"></div>
+        </th:block>
+    </th:block>
 
-  // Ambil data user dari backend
-  fetch(`/api/users/${userId}`)
-    .then(res => {
-      if (!res.ok) throw new Error('Failed to fetch user data');
-      return res.json();
-    })
-    .then(user => {
-      document.getElementById('username').value = user.username;
-      document.getElementById('email').value = user.email;
-      document.getElementById('password').value = '';  // kosongkan password
-      document.getElementById('repeat-password').value = '';
-      document.getElementById('about').value = user.about || '';
-    })
-    .catch(() => alert('Gagal mengambil data user.'));
-
-  // Event tombol list orders
-  document.querySelector('.btn-secondary').addEventListener('click', () => {
-    fetch(`/api/orders/user/${userId}`)
-      .then(res => res.json())
-      .then(data => {
-        const list = document.getElementById('order-list');
-        list.innerHTML = '';
-        if (data.length === 0) {
-          list.innerHTML = '<li>No orders found.</li>';
-        } else {
-          data.forEach(order => {
-            const li = document.createElement('li');
-            li.textContent = `#${order.id} - ${order.service} (${order.status})`;
-            list.appendChild(li);
-          });
+    <script>
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.querySelector('.toggle-password');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('bi-eye-slash');
+                toggleIcon.classList.add('bi-eye');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('bi-eye');
+                toggleIcon.classList.add('bi-eye-slash');
+            }
         }
-        document.getElementById('order-section').style.display = 'block';
-      })
-      .catch(err => console.error('Fetch error:', err));
-  });
-</script>
+    </script>
 </body>
 </html>

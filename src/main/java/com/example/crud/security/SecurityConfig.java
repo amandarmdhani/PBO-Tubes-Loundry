@@ -2,9 +2,9 @@ package com.example.crud.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -23,13 +23,23 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .cors()
-            .and()
-            .csrf().disable()
+            .cors(cors -> cors.configure(http)) // Menggunakan konfigurasi CORS di bawah
+            .csrf(csrf -> csrf.disable()) // Nonaktifkan CSRF, umum untuk API
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/tampilanUtama", "/register", "/login", "/css/**", "/js/**").permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/dashboard").hasAnyRole("ADMIN", "USER")
+                // PERBAIKAN: Izinkan akses ke semua file statis dan halaman publik
+                .requestMatchers(
+                    "/", 
+                    "/tampilanUtama", 
+                    "/register", 
+                    "/login", 
+                    "/css/**", // Memperbaiki path agar mencakup semua file css
+                    "/js/**",   // Memperbaiki path agar mencakup semua file js
+                    "/img/**"   // Menambahkan path untuk gambar
+                ).permitAll()
+                // PERBAIKAN: Mengizinkan akses ke endpoint API untuk pemesanan
+                .requestMatchers("/api/orders/**").permitAll() 
+                .requestMatchers("/admin/**", "/dashboardadmin").hasRole("ADMIN")
+                .requestMatchers("/dashboard", "/profil").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
@@ -37,7 +47,10 @@ public class SecurityConfig {
                 .successHandler(customLoginSuccessHandler)
                 .permitAll()
             )
-            .logout(logout -> logout.permitAll());
+            .logout(logout -> logout
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
+            );
 
         return http.build();
     }
@@ -52,10 +65,11 @@ public class SecurityConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                    .allowedOrigins("http://localhost:3000")
-                    .allowedMethods("GET", "POST", "PUT", "DELETE")
-                    .allowCredentials(true);
+                // PERBAIKAN: Terapkan CORS ke semua path (/**) bukan hanya root (/)
+                registry.addMapping("/**") 
+                        .allowedOrigins("http://localhost:8080")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH")
+                        .allowCredentials(true);
             }
         };
     }

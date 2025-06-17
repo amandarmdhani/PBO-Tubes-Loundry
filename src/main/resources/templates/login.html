@@ -1,51 +1,72 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"/>
-  <link rel="stylesheet" href="css/register.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login - Clothers Laundry</title>
+    <!-- Fonts and Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/auth.css}" />
 </head>
 <body>
-<div class="container">
-  <div class="left-panel">
-    <!-- Logo kiri atas -->
-    <img src="img/logo.png" alt="Logo" class="logo-img" />
+    <div class="auth-wrapper">
+        <!-- Bagian Kiri (Branding & Gambar) -->
+        <div class="auth-left">
+            <div class="auth-left-content">
+                <h2>Selamat Datang Kembali</h2>
+                <p>Bersih Sempurna, Wangi Tahan Lama.</p>
+            </div>
+        </div>
 
-    <!-- Grafik gambar -->
-    <div class="graphics">
-      <div><img src="https://img.freepik.com/free-photo/still-life-say-no-fast-fashion_23-2149669582.jpg" alt="HTML Icon" /></div>
-      <div><img src="https://c1.wallpaperflare.com/preview/660/454/364/washing-machine-laundry-tumble-drier-housework.jpg" alt="CSS Icon" /></div>
-      <div><img src="https://bakerscentrelaundry.com/wp-content/uploads/2024/01/shutterstock_619767104-768x5121-1.jpg" alt="JS Icon" /></div>
-      <div><img src="https://static.vecteezy.com/system/resources/thumbnails/027/804/019/small/washing-machine-filled-with-colorful-towels-and-laundry-door-open-free-photo.jpg" alt="React Icon" /></div>
-      <div><img src="https://img.freepik.com/free-photo/still-life-say-no-fast-fashion_23-2149669583.jpg" alt="Laravel Icon" /></div>
-      <div><img src="https://watermark.lovepik.com/photo/20211209/large/lovepik-housewife-puts-laundry-in-the-washing-machine-picture_501714212.jpg" alt="NodeJS Icon" /></div>
+        <!-- Bagian Kanan (Formulir) -->
+        <div class="auth-right">
+            <div class="auth-card">
+                <img th:src="@{/img/logo.png}" alt="Logo" style="height: 50px; vertical-align: middle; margin-right: 8px;">
+                <h1 class="auth-title">Masuk ke Akun Anda</h1>
+                
+                <div th:if="${param.error}" class="error-msg">
+                    Username atau password yang Anda masukkan salah.
+                </div>
+
+                <div th:if="${param.logout}" class="success-msg">
+                    Anda telah berhasil logout.
+                </div>
+
+                <form th:action="@{/login}" method="post" class="auth-form">
+                    <div class="form-group">
+                        <i class="fas fa-user icon"></i>
+                        <input type="text" name="username" placeholder="Username" required />
+                    </div>
+                    <div class="form-group password-container">
+                        <i class="fas fa-lock icon"></i>
+                        <input type="password" name="password" id="loginPassword" placeholder="Password" required />
+                        <i class="fas fa-eye toggle-password" onclick="togglePassword('loginPassword', this)"></i>
+                    </div>
+                    <button type="submit" class="btn-auth">Login</button>
+                </form>
+                
+                <div class="auth-switch">
+                    Belum punya akun? <a th:href="@{/register}">Buat Akun Sekarang</a>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="right-panel">
-    <form th:action="@{/login}" method="post">
-      <div class="form-title">Welcome Back</div>
-      <div class="form-group">
-        <input type="text" name="username" placeholder="Username" required />
-      </div>
-      <div class="form-group">
-        <input type="password" name="password" placeholder="Password" required />
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-register">Login</button>
-      </div>
-
-      <div th:if="${param.error}">
-        <p class="error-msg">Invalid username or password.</p>
-      </div>
-    </form>
-
-    <div class="switch-link">
-      Don't have an account? <a href="/register">Register</a>
-    </div>
-  </div>
-</div>
+    <script>
+        function togglePassword(inputId, icon) {
+            const passwordInput = document.getElementById(inputId);
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
 </body>
 </html>

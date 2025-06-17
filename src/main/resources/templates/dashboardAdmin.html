@@ -1,151 +1,315 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard Admin Clothers Laundry</title>
-  <link rel="stylesheet" href="css/dashboardadmin.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Admin - Clothers Laundry</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/dashboardadmin.css}" />
 </head>
-
 <body>
+<div th:replace="~{fragments/navbar :: navbarProfileLogo}"></div>
 
-  <!-- Navbar Admin -->
-  <nav class="navbar">
-    <div class="logo">
-      <img src="img/logo.png" alt="Logo" style="height: 50px; vertical-align: middle; margin-right: 8px;">
+<div class="container-fluid main-container">
+    <div class="d-flex justify-content-between align-items-center mb-4 dashboard-header">
+        <h1 class="h2 fw-bold mb-0">Dashboard Admin</h1>
+        <button class="btn btn-primary d-flex align-items-center gap-2" onclick="showAddModal()">
+            <i class="bi bi-plus-circle-fill"></i>
+            <span>Tambah Layanan</span>
+        </button>
     </div>
-    <ul class="nav-links">
-      <li><a href="#orders">Pesanan</a></li>
-      <li><a href="#users">Pengguna</a></li>
-      <li><a href="#settings">Pengaturan</a></li>
-    </ul>
-    <button class="profile-btn" onclick="window.location.href='/profil'">Profil</button>
-  </nav>
 
-  <!-- Hero Section for Admin -->
-  <header class="hero">
-    <img src="/img/logo.png" alt="Ilustrasi Laundry" class="hero-image">
-    <div class="hero-text">
-      <h1>Selamat Datang di Dashboard Admin Clothers Laundry</h1>
-      <p>Kelola pesanan, pengguna, dan pengaturan layanan laundry.</p>
+    <div class="row g-4 mb-4">
+        <div class="col-md-6 col-xl-3">
+            <div class="card stat-card shadow-sm">
+                <div class="card-body d-flex align-items-center">
+                    <div class="icon-circle icon-primary me-3">
+                        <i class="bi bi-basket-fill"></i>
+                    </div>
+                    <div>
+                        <h6 class="text-muted mb-1">Total Pesanan</h6>
+                        <h4 class="fw-bold mb-0 text-dark" th:text="${totalOrders ?: '0'}">0</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card stat-card shadow-sm">
+                <div class="card-body d-flex align-items-center">
+                    <div class="icon-circle icon-info me-3">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                    <div>
+                        <h6 class="text-muted mb-1">Jumlah Produk</h6>
+                        <h4 class="fw-bold mb-0 text-dark" th:text="${totalProducts ?: '0'}">0</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </header>
 
+    <div class="card shadow-sm mb-4 card-table">
+        <div class="card-header bg-white p-3 border-0">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-semibold">Daftar Pesanan Terbaru</h5>
+                <div class="input-group" style="width: 300px;">
+                    <span class="input-group-text bg-light border-0"><i class="bi bi-search"></i></span>
+                    <input type="text" id="orderSearch" class="form-control bg-light border-0" placeholder="Cari berdasarkan nama customer...">
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Tanggal</th>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Layanan</th>
+                            <th scope="col" class="text-end">Berat</th>
+                            <th scope="col" class="text-end">Total</th>
+                            <th scope="col" class="text-center">Status</th>
+                            <th scope="col" class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderTableBody">
+                        <tr th:each="order, iterStat : ${orders}">
+                            <td th:text="${iterStat.count}">1</td>
+                            <td th:text="${#temporals.format(order.orderDate, 'dd MMM yy')}">16 Jun 25</td>
+                            <td th:text="${order.customerName}">Budi Santoso</td>
+                            <td th:text="${order.service}">Cuci Setrika Express</td>
+                            <td class="text-end" th:text="${order.kilogram + ' kg'}">5 kg</td>
+                            <td class="text-end fw-semibold" th:text="'Rp' + ${#numbers.formatDecimal(order.totalPrice, 0, 'POINT', 0, 'COMMA')}">Rp50,000</td>
+                            <td class="text-center" th:switch="${order.status}">
+                                <span th:case="'COMPLETED'" class="badge rounded-pill status-completed">Selesai</span>
+                                <span th:case="'PROCESSING'" class="badge rounded-pill status-processing">Diproses</span>
+                                <span th:case="'PENDING'" class="badge rounded-pill status-pending">Menunggu</span>
+                                <span th:case="'CANCELLED'" class="badge rounded-pill status-cancelled">Dibatalkan</span> 
+                                <span th:case="*" class="badge rounded-pill bg-secondary" th:text="${order.status}"></span>
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-outline-secondary btn-icon" data-bs-toggle="modal" data-bs-target="#orderDetailModal" th:onclick="'editOrder(' + ${order.id} + ')'" title="Edit Pesanan">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-  <!-- Manage Orders Section -->
-  <section class="orders" id="orders">
-    <h2>Kelola Pesanan</h2>
-    <div class="order-list">
-      <div class="order-card" data-aos="fade-up" data-aos-delay="100">
-        <h3>Pesanan #12345</h3>
-        <p>Status: Diproses</p>
-        <button class="btn" onclick="window.location.href='/order/12345'">Lihat Detail</button>
-        <button class="btn">Ubah Status</button>
-      </div>
+    <div class="card shadow-sm card-table">
+        <div class="card-header bg-white p-3 border-0">
+            <h5 class="mb-0 fw-semibold">Daftar Layanan & Produk</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Gambar</th>
+                            <th scope="col">Nama Layanan</th>
+                            <th scope="col">Kategori</th>
+                            <th scope="col" class="text-end">Harga/kg</th>
+                            <th scope="col" class="text-center">Status</th>
+                            <th scope="col" class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="product, iter : ${products}">
+                            <td th:text="${iter.count}">1</td>
+                            <td>
+                                <img th:src="${product.imageUrl}" onerror="this.onerror=null;this.src='https://placehold.co/120x80/e9ecef/6c757d?text=Gambar'" alt="Gambar Produk" class="product-image-thumbnail"/>
+                            </td>
+                            <td>
+                                <div class="fw-bold" th:text="${product.name}">Cuci Setrika Express</div>
+                                <div class="text-muted small" th:text="${product.type}">EXPRESS</div>
+                            </td>
+                            <td th:text="${product.category}">SETRIKA</td>
+                            <td class="text-end fw-semibold" th:text="'Rp' + ${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'COMMA')}">Rp10,000</td>
+                            <td class="text-center">
+                                <span th:if="${product.active}" class="badge rounded-pill status-active">Aktif</span>
+                                <span th:unless="${product.active}" class="badge rounded-pill status-inactive">Nonaktif</span>
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-outline-secondary btn-icon" th:onclick="'editProduct(' + ${product.id} + ')'" title="Edit Produk"><i class="bi bi-pencil-fill"></i></button>
+                                <button class="btn btn-sm btn-outline-danger btn-icon" th:onclick="'deleteProduct(' + ${product.id} + ')'" title="Hapus Produk"><i class="bi bi-trash-fill"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </section>
+</div>
 
-  <!-- Summary Cards -->
-  <div class="summary-cards">
-    <div class="summary-card">
-      <h4>Total Pesanan</h4>
-      <p>120</p>
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="productForm" onsubmit="event.preventDefault(); saveProduct();">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="modalTitle">Tambah Produk Baru</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="productId">
+                    <div class="mb-3">
+                        <label for="productName" class="form-label">Nama Layanan</label>
+                        <input type="text" class="form-control" id="productName" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="productType" class="form-label">Tipe</label>
+                            <select class="form-select" id="productType" required>
+                                <option value="REGULER">Reguler</option>
+                                <option value="EXPRESS">Express</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="productCategory" class="form-label">Kategori</label>
+                            <select class="form-select" id="productCategory" required>
+                                <option value="LIPAT">Lipat</option>
+                                <option value="SETRIKA">Setrika</option>
+                                <option value="LENGKAP">Lengkap</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productPrice" class="form-label">Harga (Rp/kg)</label>
+                        <input type="number" class="form-control" id="productPrice" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productImageUrl" class="form-label">URL Gambar (Opsional)</label>
+                        <input type="url" class="form-control" id="productImageUrl" placeholder="https://contoh.com/gambar.jpg">
+                    </div>
+                    <div class="mb-3">
+                        <label for="productDescription" class="form-label">Deskripsi Singkat</label>
+                        <textarea class="form-control" id="productDescription" rows="3"></textarea>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="productActive" checked>
+                        <label class="form-check-label" for="productActive">Layanan Aktif</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="summary-card">
-      <h4>Pengguna Aktif</h4>
-      <p>87</p>
-    </div>
-    <div class="summary-card">
-      <h4>Pendapatan</h4>
-      <p>Rp 2.500.000</p>
+</div>
+
+<div class="modal fade" id="orderDetailModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <form id="editOrderForm" onsubmit="event.preventDefault(); saveOrder();">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">Detail Pesanan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="orderId" />
+          
+          <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">No. Order</label>
+                <p id="orderNumber" class="form-control-plaintext fw-bold"></p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Tanggal Pesanan</label>
+                <p id="orderDate" class="form-control-plaintext"></p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Nama Pelanggan</label>
+                <p id="customerName" class="form-control-plaintext"></p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Layanan</label>
+                <p id="service" class="form-control-plaintext"></p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Berat</label>
+                <p id="kilogram" class="form-control-plaintext"></p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Total Harga</label>
+                <p id="totalPrice" class="form-control-plaintext fw-semibold"></p>
+            </div>
+          </div>
+          
+          <hr>
+
+          <div class="mb-3">
+            <label for="orderStatus" class="form-label fw-bold text-primary">Ubah Status Pesanan</label>
+            <select id="orderStatus" class="form-select form-select-lg">
+              <option value="PENDING">Menunggu</option>
+              <option value="PROCESSING">Diproses</option>
+              <option value="COMPLETED">Selesai</option>
+              <option value="CANCELLED">Dibatalkan</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary">Update Status</button>
+        </div>
+      </form>
     </div>
   </div>
+</div>
 
-  <!-- Manage Users Section -->
-  <section class="users" id="users">
-    <h2>Kelola Pengguna</h2>
-    <div class="user-list">
-      <div class="user-card">
-        <h3>Sarah - Admin</h3>
-        <p>Role: Admin</p>
-        <button class="btn" onclick="window.location.href='/user/sarah'">Lihat Detail</button>
-        <button class="btn">Ubah Role</button>
-      </div>
-    </div>
-  </section>
+<div th:replace="~{fragments/footer :: footer-admin}"></div>
 
-  <!-- Progress Bar -->
-  <div class="progress-container">
-    <label>Status Progres</label>
-    <div class="progress-bar">
-      <div class="progress" style="width: 65%;">65%</div>
-    </div>
-  </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/dashboard.js}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
 
-  <!-- Settings Section -->
-  <section class="settings" id="settings">
-    <h2>Pengaturan</h2>
-    <p>Kelola pengaturan untuk layanan laundry Anda.</p>
-    <button class="btn">Atur Layanan</button>
-    <button class="btn">Atur Paket</button>
-    <button class="btn">Atur Testimoni</button>
-  </section>
+        const searchInput = document.getElementById('orderSearch');
+        const tableBody = document.getElementById('orderTableBody');
+        const tableRows = tableBody.getElementsByTagName('tr');
 
-    <div class="chart-container">
-        <canvas id="orderChart"></canvas>
-    </div>
-
-
-
-      <!-- Chart -->
-  <canvas id="orderChart" width="400" height="200"></canvas>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    const ctx = document.getElementById('orderChart').getContext('2d');
-    const orderChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'],
-        datasets: [{
-          label: 'Pesanan',
-          data: [12, 19, 3, 5, 8],
-          backgroundColor: '#286284',
-          borderRadius: 8
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: false },
+        if(searchInput) {
+            searchInput.addEventListener('keyup', function() {
+                const filter = searchInput.value.toLowerCase();
+                for (let i = 0; i < tableRows.length; i++) {
+                    const customerNameCell = tableRows[i].getElementsByTagName('td')[2]; 
+                    if (customerNameCell) {
+                        const textValue = customerNameCell.textContent || customerNameCell.innerText;
+                        if (textValue.toLowerCase().indexOf(filter) > -1) {
+                            tableRows[i].style.display = "";
+                        } else {
+                            tableRows[i].style.display = "none";
+                        }
+                    }
+                }
+            });
         }
-      }
     });
-  </script>
-
-  <!-- AOS Init -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>AOS.init();</script>
-
-  <!-- Footer -->
-  <footer id="kontak">
-    <div class="footer-container">
-      <div class="footer-about">
-        <h3>Clothers Laundry</h3>
-        <p>Mitra Anda untuk layanan laundry berkualitas di kota Anda.</p>
-      </div>
-      <div class="footer-contact">
-        <h4>Hubungi Kami</h4>
-        <p>Email: support@Clothers.com</p>
-        <p>Telepon: +62 812 3456 7890</p>
-        <p>Alamat: Jl. Bersih No. 1, Jakarta</p>
-      </div>
-    </div>
-    <p class="copyright">&copy; 2025 Clothers Laundry. Hak cipta dilindungi.</p>
-  </footer>
-
+</script>
 
 </body>
 </html>

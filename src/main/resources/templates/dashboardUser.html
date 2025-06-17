@@ -1,353 +1,328 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard Clothers Laundry</title>
-  <link rel="stylesheet" href="css/dashboarduser.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Clothers Laundry</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/dashboarduser.css}" />
 </head>
 
-<nav class="navbar">
-  <div class="logo">
-    <img src="img/logo.png" alt="Logo" style="height: 50px; vertical-align: middle; margin-right: 8px;">
-  </div>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-  <ul class="nav-links">
-    <li><a href="#layanan">Layanan</a></li>
-    <li><a href="#paket">Paket</a></li>
-    <li><a href="#testimoni">Testimoni</a></li>
-    <li><a href="#kontak">Kontak</a></li>
-  </ul>
+    <main class="main-content">
+        <header class="hero-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 hero-text-content">
+                        <h1 class="hero-title">Solusi Laundry Cepat & Terpercaya</h1>
+                        <p class="hero-subtitle">Nikmati pakaian bersih, wangi, dan rapi tanpa repot. Kami siap melayani Anda dengan kualitas terbaik.</p>
+                        <a href="#plans" class="btn btn-primary btn-lg hero-cta">Lihat Layanan Kami</a>
+                    </div>
+                    <div class="col-lg-6 text-center">
+                        <img th:src="@{/img/logo.png}" alt="Ilustrasi Laundry" class="hero-image">
+                    </div>
+                </div>
+            </div>
+        </header>
 
-  <button class="profile-btn" onclick="window.location.href='/profil'">Profil</button>
-</nav>
+        <section class="features-section">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-4 animate-on-scroll">
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-tshirt"></i></div>
+                            <h3 class="feature-title">Pencucian Profesional</h3>
+                            <p class="feature-description">Menggunakan teknologi modern untuk hasil bersih maksimal.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 animate-on-scroll">
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-truck"></i></div>
+                            <h3 class="feature-title">Antar-Jemput</h3>
+                            <p class="feature-description">Layanan praktis untuk kenyamanan Anda di rumah.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 animate-on-scroll">
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                            <h3 class="feature-title">Garansi Kepuasan</h3>
+                            <p class="feature-description">Kami menjamin kualitas layanan atau cuci ulang gratis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <section class="services-section" id="plans">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title animate-on-scroll">Layanan Kami</h2>
+                    <p class="section-subtitle animate-on-scroll">Pilih paket yang paling sesuai dengan kebutuhan Anda.</p>
+                </div>
+                
+                <div class="owl-carousel product-carousel owl-theme">
+                    <div th:each="product : ${products}" class="item animate-on-scroll">
+                        <div class="service-card">
+                            <div class="service-card-img-container">
+                                <th:block th:if="${product.imageUrl != null and !product.imageUrl.isEmpty()}">
+                                    <img th:src="@{${product.imageUrl}}" alt="Gambar Produk" class="service-card-img">
+                                </th:block>
+                                <th:block th:unless="${product.imageUrl != null and !product.imageUrl.isEmpty()}">
+                                    <i class="fas fa-tshirt default-icon"></i>
+                                </th:block>
+                            </div>
+                            <div class="service-card-body">
+                                <h3 class="service-card-title" th:text="${product.name}">Nama Produk</h3>
+                                <p class="service-card-category" th:text="${product.category}">Kategori</p>
+                                <ul class="service-card-description">
+                                    <li th:each="desc : ${#strings.arraySplit(product.description, '|')}" th:text="${desc}"></li>
+                                </ul>
+                            </div>
+                            <div class="service-card-footer">
+                                <p class="service-card-price" th:text="'Rp ' + ${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'COMMA')} + '/kg'"></p>
+                                <button class="btn btn-secondary cta" th:attr="data-service=${product.name}, data-price=${product.price}">Pesan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <section class="testimonial-section" id="testimoni">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title animate-on-scroll">Apa Kata Mereka?</h2>
+                    <p class="section-subtitle animate-on-scroll">Pengalaman pelanggan yang telah memercayai kami.</p>
+                </div>
+                <div class="owl-carousel testimonial-carousel owl-theme">
+                    <div class="item">
+                        <div class="testimonial-card">
+                            <i class="fas fa-quote-left quote-icon"></i>
+                            <p class="testimonial-text">"Clothers sangat membantu! Layanan cepat dan pakaian saya selalu wangi dan rapi."</p>
+                            <div class="testimonial-author">- Sarah, Jakarta</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimonial-card">
+                            <i class="fas fa-quote-left quote-icon"></i>
+                            <p class="testimonial-text">"Antar-jemputnya praktis sekali. Kualitas cuciannya juga luar biasa, sangat bersih."</p>
+                            <div class="testimonial-author">- Andi, Bandung</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-  <header class="hero">
-  <img src="/img/logo.png" alt="Ilustrasi Laundry" class="hero-image">
-
-
-    <div class="hero-text">
-      <h1>Selamat Datang di Clothers Laundry</h1>
-      <p>Mitra terpercaya Anda untuk cucian bersih dan wangi</p>
-    </div>
-  </header>
-
-  <section class="cards" id="layanan">
-    <div class="card">
-      <i class="fas fa-tshirt"></i>
-      <h2>Pencucian Profesional</h2>
-      <p>Kami menangani pakaian Anda dengan peralatan dan teknik modern.</p>
-    </div>
-    <div class="card">
-      <i class="fas fa-truck"></i>
-      <h2>Antar-Jemput Gratis</h2>
-      <p>Layanan antar-jemput gratis untuk semua pesanan di atas Rp100.000.</p>
-    </div>
-    <div class="card">
-      <i class="fas fa-check-circle"></i>
-      <h2>Garansi Kepuasan</h2>
-      <p>Kepuasan pelanggan adalah prioritas kami. Dijamin 100% puas!</p>
-    </div>
-  </section>
-    <section class="plans" id="paket">
-      <div class="tabs">
-        <button class="tab active" data-tab="lipat" onclick="switchTab('lipat')">Cuci Kering Lipat (reguler)</button>
-        <button class="tab" data-tab="setrika" onclick="switchTab('setrika')">Cuci Kering Setrika (reguler)</button>
-        <button class="tab" data-tab="lipat-express" onclick="switchTab('lipat-express')">Cuci Kering Lipat (express)</button>
-        <button class="tab" data-tab="setrika-express" onclick="switchTab('setrika-express')">Cuci Kering Setrika (express)</button>
-      </div>
-
-      <!-- Reguler: Lipat -->
-      <div id="lipat" class="plan-content active">
-        <h3>Cuci Kering Lipat (reguler)</h3>
-        <ul>
-          <li>✓ Harga terjangkau untuk pakaian harian</li>
-          <li>✓ Proses standar 2–3 hari</li>
-          <li>Rp7.000/kg</li>
-        </ul>
-        <button class="cta" data-service="Cuci Kering Lipat (reguler)" data-price="7000">Pesan Sekarang</button>
-      </div>
-
-      <!-- Reguler: Setrika -->
-      <div id="setrika" class="plan-content">
-        <h3>Cuci Kering Setrika (reguler)</h3>
-        <ul>
-          <li>✓ Harga terjangkau untuk pakaian harian</li>
-          <li>✓ Proses standar 2–3 hari</li>
-          <li>✓ Termasuk layanan lipat</li>
-          <li>Rp10.000/kg</li>
-        </ul>
-        <button class="cta" data-service="Cuci Kering Setrika (reguler)" data-price="10000">Pesan Sekarang</button>
-      </div>
-
-      <!-- Express: Lipat -->
-      <div id="lipat-express" class="plan-content">
-        <h3>Cuci Kering Lipat (express)</h3>
-        <ul>
-          <li>✓ Prioritas pengerjaan cepat</li>
-          <li>✓ Selesai dalam 24 jam</li>
-          <li>Rp12.000/kg</li>
-        </ul>
-        <button class="cta" data-service="Cuci Kering Lipat (express)" data-price="12000">Pesan Sekarang</button>
-      </div>
-
-      <!-- Express: Setrika -->
-      <div id="setrika-express" class="plan-content">
-        <h3>Cuci Kering Setrika (express)</h3>
-        <ul>
-          <li>✓ Prioritas pengerjaan cepat</li>
-          <li>✓ Termasuk layanan setrika dan lipat</li>
-          <li>✓ Selesai dalam 24 jam</li>
-          <li>Rp15.000/kg</li>
-        </ul>
-        <button class="cta" data-service="Cuci Kering Setrika (express)" data-price="15000">Pesan Sekarang</button>
-      </div>
-    </section>
-
-    <section class="testimonial" id="testimoni">
-    <h2 class="testimonial-title">Apa Kata Pelanggan Kami</h2>
-    <div class="testimonial-container">
-        <div class="testimonial-card">
-        <p>"Clothers sangat membantu! Layanan cepat dan pakaian saya harum!"</p>
-        <span>- Sarah, Jakarta</span>
+    <div id="modal" class="modal-overlay">
+        <div class="modal-box">
+            <button type="button" class="btn-close close" aria-label="Close"></button>
+            <h2 id="modal-title" class="modal-title">Judul Layanan</h2>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="kg-input">Jumlah (kg)</label>
+                    <input type="number" id="kg-input" class="form-control" min="1" value="1" />
+                </div>
+                <div class="form-group">
+                    <label>Metode Pengantaran</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="delivery" id="deliv1" value="0" checked>
+                        <label class="form-check-label" for="deliv1">Ambil Sendiri (Gratis)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="delivery" id="deliv2" value="3000">
+                        <label class="form-check-label" for="deliv2">Antar ke Rumah (+Rp 3.000)</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="payment-select">Metode Pembayaran</label>
+                    <select id="payment-select" class="form-select">
+                        <option value="cod" selected>COD (Bayar di Tempat)</option>
+                        <option value="transfer">Transfer Bank</option>
+                        <option value="ewallet">E-Wallet</option>
+                    </select>
+                </div>
+                <div id="bank-options" class="form-group" style="display:none;">
+                    <label for="bank-select">Pilih Bank</label>
+                    <select id="bank-select" class="form-select">
+                        <option value="">-- Pilih --</option><option value="bca">BCA</option><option value="mandiri">Mandiri</option><option value="bni">BNI</option>
+                    </select>
+                </div>
+                <div id="ewallet-options" class="form-group" style="display:none;">
+                    <label for="ewallet-select">Pilih E-Wallet</label>
+                    <select id="ewallet-select" class="form-select">
+                        <option value="">-- Pilih --</option><option value="gopay">Gopay</option><option value="ovo">OVO</option><option value="dana">Dana</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <p class="total-price-text">Total: <span id="total-price">Rp 0</span></p>
+                <button class="btn btn-primary w-100 confirm-btn">Konfirmasi Pesanan</button>
+            </div>
         </div>
-        <div class="testimonial-card">
-        <p>"Antar-jemput yang praktis. Kualitasnya luar biasa."</p>
-        <span>- Andi, Bandung</span>
-        </div>
-        <div class="testimonial-card">
-        <p>"Sangat puas dengan pelayanan yang cepat dan hasil yang sempurna!"</p>
-        <span>- Lila, Surabaya</span>
-        </div>
-    </div>
-    </section>
-
-
-  <footer id="kontak">
-    <div class="footer-container">
-      <div class="footer-about">
-        <h3>Clothers Laundry</h3>
-        <p>Mitra Anda untuk layanan laundry berkualitas di kota Anda.</p>
-      </div>
-      <div class="footer-contact">
-        <h4>Hubungi Kami</h4>
-        <p>Email: support@Clothers.com</p>
-        <p>Telepon: +62 812 3456 7890</p>
-        <p>Alamat: Jl. Bersih No. 1, Jakarta</p>
-      </div>
-    </div>
-    <p class="copyright">&copy; 2025 Clothers Laundry. Hak cipta dilindungi.</p>
-  </footer>
-
-  <!-- Modal -->
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2 id="modal-title">Judul Layanan</h2>
-
-    <p>Masukkan jumlah kilogram:</p>
-    <input type="number" id="kg-input" min="1" value="1" />
-
-    <p>Pilih metode pengantaran:</p>
-    <div>
-      <label>
-        <input type="radio" name="delivery" value="0" checked />
-        Ambil Sendiri (Gratis)
-      </label><br>
-      <label>
-        <input type="radio" name="delivery" value="3000" />
-        Antar ke Rumah (+Rp3.000)
-      </label>
     </div>
 
-<p>Pilih metode pembayaran:</p>
-<select id="payment-select">
-  <option value="cod" selected>COD (Bayar di Tempat)</option>
-  <option value="transfer">Transfer Bank</option>
-  <option value="ewallet">E-Wallet</option>
-</select>
+    <div th:replace="~{fragments/footer :: footer-user}"></div>
 
+    <a href="#" id="scrollTopBtn" class="scroll-top-btn" title="Kembali ke atas">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
-    <!-- Pilihan bank (hidden by default) -->
-    <div id="bank-options" style="display:none; margin-top:8px;">
-      <label for="bank-select">Pilih Bank:</label>
-      <select id="bank-select">
-        <option value="">-- Pilih Bank --</option>
-        <option value="bca">BCA</option>
-        <option value="mandiri">Mandiri</option>
-        <option value="bni">BNI</option>
-      </select>
-    </div>
+    <script th:inline="javascript">
 
-    <!-- Pilihan e-wallet (hidden by default) -->
-    <div id="ewallet-options" style="display:none; margin-top:8px;">
-      <label for="ewallet-select">Pilih E-Wallet:</label>
-      <select id="ewallet-select">
-        <option value="">-- Pilih E-Wallet --</option>
-        <option value="gopay">Gopay</option>
-        <option value="ovo">OVO</option>
-        <option value="dana">Dana</option>
-      </select>
-    </div>
+    $(document).ready(function() {
 
-    <p>Total: <span id="total-price">Rp0</span></p>
+        $('.product-carousel').owlCarousel({
+            loop: true, margin: 24, nav: true, dots: true,
+            onInitialized: function() {
+                $('.product-carousel .owl-item').each(function(index) {
+                    $(this).find('.animate-on-scroll').css('--owl-item-index', index);
+                });
+            },
+            responsive: { 0: { items: 1 }, 576: { items: 2 }, 992: { items: 3 }, 1200: { items: 3 } }
+        });
 
-    <button class="confirm-btn">Konfirmasi Pesanan</button>
-  </div>
-</div>
-<!-- Bagian akhir script sebelum </body> -->
-<script>
-  const modal = document.getElementById("modal");
-  const modalTitle = document.getElementById("modal-title");
-  const kgInput = document.getElementById("kg-input");
-  const totalPriceEl = document.getElementById("total-price");
-  const closeBtn = document.querySelector(".close");
-  const confirmBtn = document.querySelector(".confirm-btn");
+        $('.testimonial-carousel').owlCarousel({
+            loop: true, margin: 24, nav: false, dots: true, autoplay: true,
+            autoplayTimeout: 3000, autoplayHoverPause: true,
+            responsive: { 0: { items: 1 }, 768: { items: 2 } }
+        });
 
-  let currentPrice = 0;
-  let currentService = "";
+        setTimeout(() => { $('.hero-section').addClass('is-loaded'); }, 100);
 
-  // Saat tombol layanan diklik
-  document.querySelectorAll(".cta").forEach(button => {
-    button.addEventListener("click", () => {
-      currentService = button.dataset.service;
-      currentPrice = parseInt(button.dataset.price);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
-      modalTitle.textContent = currentService;
-      kgInput.value = 1;
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        if (scrollTopBtn) {
+            window.addEventListener('scroll', () => {
+                scrollTopBtn.classList.toggle('visible', window.scrollY > 300);
+            });
+            scrollTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
 
-      updateTotalPrice();
-      updatePaymentOptions(); // Reset opsi pembayaran saat modal dibuka
-      modal.style.display = "flex";
+        const modal = document.getElementById("modal");
+        const modalTitle = document.getElementById("modal-title");
+        const kgInput = document.getElementById("kg-input");
+        const totalPriceEl = document.getElementById("total-price");
+        const closeBtn = modal.querySelector(".close");
+        const confirmBtn = modal.querySelector(".confirm-btn");
+        const paymentSelect = document.getElementById('payment-select');
+        const bankOptions = document.getElementById('bank-options');
+        const ewalletOptions = document.getElementById('ewallet-options');
+
+        let currentPrice = 0;
+        let currentService = "";
+
+        function updateTotalPrice() {
+            const kg = parseInt(kgInput.value) || 0;
+            const deliveryCost = parseInt(modal.querySelector('input[name="delivery"]:checked').value) || 0;
+            const total = (currentPrice * kg) + deliveryCost;
+            // PERBAIKAN: Menggunakan string concatenation untuk menghindari error linting
+            totalPriceEl.textContent = 'Rp ' + total.toLocaleString("id-ID");
+        }
+
+        function updatePaymentOptions() {
+            const selectedPayment = paymentSelect.value;
+            bankOptions.style.display = selectedPayment === 'transfer' ? 'block' : 'none';
+            ewalletOptions.style.display = selectedPayment === 'ewallet' ? 'block' : 'none';
+        }
+
+        $(document).on("click", ".cta", function() {
+            currentService = $(this).data("service");
+            currentPrice = parseInt($(this).data("price"));
+            modalTitle.textContent = currentService;
+            kgInput.value = 1;
+            updateTotalPrice();
+            updatePaymentOptions();
+            modal.style.display = "flex";
+        });
+
+        kgInput.addEventListener("input", updateTotalPrice);
+        modal.querySelectorAll('input[name="delivery"]').forEach(radio => radio.addEventListener('change', updateTotalPrice));
+        paymentSelect.addEventListener('change', updatePaymentOptions);
+        closeBtn.addEventListener("click", () => modal.style.display = "none");
+        window.addEventListener("click", (e) => {
+            if (e.target === modal) modal.style.display = "none";
+        });
+
+        confirmBtn.addEventListener("click", () => {
+            const kg = parseInt(kgInput.value) || 0;
+            if (kg <= 0) { alert("Jumlah kilogram harus lebih dari 0."); return; }
+            
+            const deliveryCost = parseInt(modal.querySelector('input[name="delivery"]:checked')?.value || 0);
+            const paymentMethod = paymentSelect.value;
+            const bankSelection = document.getElementById("bank-select").value;
+            const ewalletSelection = document.getElementById("ewallet-select").value;
+            let paymentDetail = "COD";
+            
+            if (paymentMethod === 'transfer') {
+                if (!bankSelection) { alert("Silakan pilih bank terlebih dahulu."); return; }
+                paymentDetail = bankSelection;
+            } else if (paymentMethod === 'ewallet') {
+                if (!ewalletSelection) { alert("Silakan pilih e-wallet terlebih dahulu."); return; }
+                paymentDetail = ewalletSelection;
+            }
+
+            const total = (currentPrice * kg) + deliveryCost;
+            const orderData = { service: currentService, kilogram: kg, deliveryCost, paymentMethod, paymentDetail, totalPrice: total };
+            
+            confirmBtn.classList.add('is-loading');
+            
+            
+            const postOrderUrl = '/api/orders';
+            
+            fetch(postOrderUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(orderData)
+            })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(res); 
+            })
+            .then(data => {
+                const successMessage = 'Pesanan untuk ' + orderData.service + ' berhasil dibuat!\nTotal: Rp' + orderData.totalPrice.toLocaleString("id-ID");
+                alert(successMessage);
+                modal.style.display = "none";
+            })
+            .catch(err => {
+                console.error("Fetch Error:", err);
+                alert("Gagal mengirim pesanan ke server. Silakan coba lagi.");
+            })
+            .finally(() => {
+                confirmBtn.classList.remove('is-loading');
+            });
+        });
     });
-  });
-
-  // Fungsi update total harga
-  function updateTotalPrice() {
-    const kg = parseInt(kgInput.value) || 0;
-    const deliveryCost = parseInt(document.querySelector('input[name="delivery"]:checked').value) || 0;
-    const total = currentPrice * kg + deliveryCost;
-
-    totalPriceEl.textContent = `Rp${total.toLocaleString("id-ID")}`;
-  }
-
-  // Event listener input kilogram
-  kgInput.addEventListener("input", updateTotalPrice);
-
-  // Event listener untuk pilihan pengantaran
-  document.querySelectorAll('input[name="delivery"]').forEach(radio => {
-    radio.addEventListener('change', updateTotalPrice);
-  });
-
-  // Tutup modal saat klik tombol close
-  closeBtn.addEventListener("click", () => {
-    modal.style.display = "none";
-  });
-
-  // Tutup modal saat klik di luar konten modal
-  window.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      modal.style.display = "none";
-    }
-  });
-
-  // Konfirmasi pesanan
-  confirmBtn.addEventListener("click", () => {
-    const kg = parseInt(kgInput.value) || 0;
-    const deliveryCost = parseInt(document.querySelector('input[name="delivery"]:checked').value) || 0;
-    const total = currentPrice * kg + deliveryCost;
-
-    alert(`✅ Pesanan untuk ${currentService} sebanyak ${kg} kg berhasil!\nTotal: Rp${total.toLocaleString("id-ID")}`);
-    modal.style.display = "none";
-  });
-
-  // Fungsi untuk switch tab
-  function switchTab(tabId) {
-    document.querySelectorAll('.plan-content').forEach(tab => {
-      tab.classList.remove('active');
-    });
-    const selectedTab = document.getElementById(tabId);
-    if (selectedTab) selectedTab.classList.add('active');
-    document.querySelectorAll('.tab').forEach(btn => {
-      btn.classList.remove('active');
-    });
-    const matchingButton = document.querySelector(`.tab[data-tab="${tabId}"]`);
-    if (matchingButton) matchingButton.classList.add('active');
-  }
-
-  // -- FUNGSI TAMBAHAN UNTUK METODE PEMBAYARAN --
-// -- FUNGSI TAMBAHAN UNTUK METODE PEMBAYARAN --
-const paymentSelect = document.getElementById('payment-select');
-const bankOptions = document.getElementById('bank-options');
-const ewalletOptions = document.getElementById('ewallet-options');
-
-function updatePaymentOptions() {
-  const selectedPayment = paymentSelect.value;
-  if (selectedPayment === 'transfer') {
-    bankOptions.style.display = 'block';
-    ewalletOptions.style.display = 'none';
-  } else if (selectedPayment === 'ewallet') {
-    bankOptions.style.display = 'none';
-    ewalletOptions.style.display = 'block';
-  } else {
-    bankOptions.style.display = 'none';
-    ewalletOptions.style.display = 'none';
-  }
-}
-
-// Jalankan saat load
-updatePaymentOptions();
-
-// Event listener saat select payment berubah
-paymentSelect.addEventListener('change', updatePaymentOptions);
-
-confirmBtn.addEventListener("click", () => {
-  const kg = parseInt(kgInput.value) || 0;
-  const deliveryCost = parseInt(document.querySelector('input[name="delivery"]:checked')?.value || 0);
-  const paymentMethod = paymentSelect.value;
-  const paymentDetail = 
-    paymentMethod === 'transfer' ? document.getElementById("bank-select").value :
-    paymentMethod === 'ewallet' ? document.getElementById("ewallet-select").value : "COD";
-
-  const total = currentPrice * kg + deliveryCost;
-
-  const orderData = {
-    service: currentService,
-    kilogram: kg,
-    deliveryCost: deliveryCost,
-    paymentMethod: paymentMethod,
-    paymentDetail: paymentDetail,
-    totalPrice: total
-  };
-
-fetch('http://localhost:8080/api/orders', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(orderData),
-  // credentials: 'include' // aktifkan jika backend perlu cookie/session
-})
-.then(res => {
-  if (res.ok) {
-    alert(`✅ Pesanan untuk ${currentService} sebanyak ${kg} kg berhasil!\nTotal: Rp${total.toLocaleString("id-ID")}`);
-    modal.style.display = "none";
-  } else {
-    alert("❌ Gagal mengirim pesanan.");
-  }
-})
-.catch(err => {
-  console.error(err);
-  alert("❌ Terjadi kesalahan saat mengirim pesanan.");
-});
-
-});
-</script>
-
+    /*]]>*/
+    </script>
 </body>
 </html>

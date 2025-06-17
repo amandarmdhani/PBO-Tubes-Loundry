@@ -7,9 +7,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class AuthController {
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -17,59 +21,51 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // Halaman utama (landing page sebelum login)
-    @GetMapping("/")
-    public String tampilanUtama() {
-        return "tampilanUtama"; // pastikan file tampilanUtama.html ada di resources/templates/
-    }
-
-    // Tampilkan halaman login
     @GetMapping("/login")
-    public String login(Model model) {
-        model.addAttribute("user", new User());
+    public String showLoginPage() {
         return "login";
     }
 
-    // Tampilkan halaman register
     @GetMapping("/register")
-    public String register(Model model) {
-        model.addAttribute("user", new User());
+    public String showRegisterPage(Model model) {
+        if (!model.containsAttribute("user")) {
+            model.addAttribute("user", new User());
+        }
         return "register";
     }
 
-    // Proses registrasi
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user, Model model) {
-        // cek apakah username sudah ada
-        if(userRepository.findByUsername(user.getUsername()) != null) {
-            model.addAttribute("error", "Username sudah digunakan!");
-            return "register";
+    public String processRegister(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes) {
+        try {
+            logger.debug("Processing registration for user: {}", user.getUsername());
+            
+            if (userRepository.existsByUsername(user.getUsername())) {
+                logger.debug("Username {} already exists", user.getUsername());
+                
+                // --- PENYEMPURNAAN DI SINI ---
+                // Kirim kembali data user yang sudah diinput agar form tidak kosong
+                redirectAttributes.addFlashAttribute("user", user); 
+                redirectAttributes.addFlashAttribute("error", "Username sudah terdaftar, silakan gunakan username lain.");
+                
+                return "redirect:/register";
+            }
+
+            // Log user data before saving
+            logger.debug("User data before saving - Name: {}, Username: {}, Email: {}", 
+                user.getName(), user.getUsername(), user.getEmail());
+
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRole("USER");
+            
+            User savedUser = userRepository.save(user);
+            logger.debug("User saved successfully with ID: {}", savedUser.getId());
+
+            redirectAttributes.addFlashAttribute("success", "Registrasi berhasil, silakan login.");
+            return "redirect:/login";
+        } catch (Exception e) {
+            logger.error("Error during registration: ", e);
+            redirectAttributes.addFlashAttribute("error", "Terjadi kesalahan saat registrasi: " + e.getMessage());
+            return "redirect:/register";
         }
-
-        // set default role
-        user.setRole("user");
-
-        // encrypt password sebelum disimpan
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        // simpan user
-        userRepository.save(user);
-
-        return "redirect:/login";
-    }
-
-    // Proses login
-    @PostMapping("/login")
-    public String loginUser(@ModelAttribute User formUser, Model model) {
-        User user = userRepository.findByUsername(formUser.getUsername());
-
-        if (user != null && passwordEncoder.matches(formUser.getPassword(), user.getPassword())) {
-            model.addAttribute("username", user.getUsername());
-            model.addAttribute("role", user.getRole());
-            return "dashboard";
-        }
-
-        model.addAttribute("error", "Username atau password salah");
-        return "login";
     }
 }

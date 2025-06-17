@@ -1,386 +1,484 @@
+/* =================================================================
+   DESIGN SYSTEM & GLOBAL STYLES (PALET WARNA BARU)
+   ================================================================= */
+
+:root {
+    /* Colors - Palet Warna Baru Anda */
+    --primary-color: #286284;
+    --secondary-color: #1f4f5d;
+    --primary-light: #e0f2ff;
+    --light-color: #f8f9fa;
+    --dark-color: #183c51;
+    --text-dark: #1a3e53;
+    --text-light: #458bb4;
+    --border-color: #e9ecef;
+    --white-color: #ffffff;
+    
+    /* Notification Colors (untuk penggunaan di masa depan) */
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --info-color: #17a2b8;
+
+    /* Typography */
+    --font-family-sans-serif: 'Inter', sans-serif;
+
+    /* Spacing */
+    --spacing-xs: 0.25rem; /* 4px */
+    --spacing-sm: 0.5rem;  /* 8px */
+    --spacing-md: 1rem;    /* 16px */
+    --spacing-lg: 1.5rem;  /* 24px */
+    --spacing-xl: 2rem;    /* 32px */
+    --spacing-xxl: 4rem;   /* 64px */
+
+    /* Others */
+    --border-radius-sm: 0.25rem; /* 4px */
+    --border-radius-md: 0.5rem;  /* 8px */
+    --border-radius-lg: 1rem;    /* 16px */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
 body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: linear-gradient(to bottom, #e0f2ff, #ffffff);
-  color: #93B0C1;
+    font-family: var(--font-family-sans-serif);
+    background-color: var(--light-color);
+    color: var(--text-light); /* Menggunakan warna teks default baru */
+    line-height: 1.6;
 }
 
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 2rem;
+.main-content {
+    padding-top: 60px; /* Jarak dari navbar sticky */
 }
 
-header {
-  text-align: center;
-  margin-bottom: 2rem;
+.section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
 }
 
-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: var(--spacing-sm);
 }
 
-header p {
-  font-size: 1.2rem;
-  color: #93B0C1;
+.section-subtitle {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--text-light);
 }
 
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: center;
-  margin-bottom: 3rem;
+.btn {
+    border-radius: var(--border-radius-md);
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.2s ease-in-out;
+    border: none;
 }
 
-.card {
-  background: white;
-  border-radius: 16px;
-  padding: 1.5rem;
-  width: 300px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+    color: var(--white-color);
 }
 
-.card i {
-  font-size: 2.5rem;
-  color: #286284;
-  margin-bottom: 1rem;
+.btn-secondary {
+    background-color: var(--text-light);
+    color: var(--white-color);
+}
+.btn-secondary:hover {
+    background-color: var(--primary-color);
 }
 
-.card h2 {
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-  color: #286284;
+
+/* =================================================================
+   SECTION STYLES
+   ================================================================= */
+
+/* Hero Section */
+.hero-section {
+  margin-bottom: 150px;
+  margin-top: 100px;
+}
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    line-height: 1.2;
+}
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-light);
+    margin: var(--spacing-md) 0 var(--spacing-lg);
+}
+.hero-image {
+    max-width: 80%;
+    height: auto;
+    border-radius: var(--border-radius-lg);
 }
 
-.card p {
-  color: #93B0C1;
+/* Features Section */
+.features-section {
+    padding: var(--spacing-xxl) 0;
+}
+.feature-card {
+    background-color: var(--white-color);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    text-align: center;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-md);
+}
+.feature-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--dark-color);
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+/* Services/Products Section */
+.services-section {
+    padding: var(--spacing-xxl) 0;
+    background-color: var(--primary-light); /* Latar belakang biru muda */
 }
 
-.plans {
-  text-align: center;
+/* Service Card (Product) */
+.service-card {
+    background: var(--white-color);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+.service-card-img-container {
+    height: 180px;
+    background-color: #e9ecef; /* Abu-abu terang untuk kontras gambar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-top-left-radius: var(--border-radius-lg);
+    border-top-right-radius: var(--border-radius-lg);
+}
+.service-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.default-icon {
+    font-size: 4rem;
+    color: var(--border-color);
+}
+.service-card-body {
+    padding: var(--spacing-lg);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.service-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+.service-card-category {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: var(--spacing-md);
+}
+.service-card-description {
+    font-size: 0.9rem;
+    padding-left: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    color: var(--secondary-color);
+}
+.service-card-footer {
+    padding: 0 var(--spacing-lg) var(--spacing-lg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+.service-card-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
 }
 
-.tabs {
-  display: inline-flex;
-  background: #D7EBFF;
-  padding: 0.5rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
+/* Testimonial Section */
+.testimonial-section {
+    padding: var(--spacing-xxl) 0;
+    background-color: var(--white-color);
 }
-
-.tab {
-  background: none;
-  border: none;
-  padding: 0.5rem 1.5rem;
-  font-weight: 600;
-  color: #286284;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.tab.active {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  color: #286284;
-}
-
-.plan-content {
-  display: none;
-  background: white;
-  padding: 2rem;
-  border-radius: 16px;
-  max-width: 500px;
-  margin: 0 auto;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-}
-
-.plan-content.active {
-  display: block;
-}
-
-.plan-content h3 {
-  font-size: 1.5rem;
-  color: #286284;
-  margin-bottom: 1rem;
-}
-
-.plan-content ul {
-  text-align: left;
-  list-style: none;
-  padding: 0;
-  margin-bottom: 1.5rem;
-}
-
-.plan-content li {
-  margin-bottom: 0.5rem;
-}
-
-.testimonial {
-  background-color: #f7f7f7;
-  padding: 3rem 1rem;
-  text-align: center;
-}
-
-.testimonial-title {
-  font-size: 2rem;
-  color: #286284;
-  margin-bottom: 2rem;
-  font-weight: 600;
-}
-
-.testimonial-container {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
 .testimonial-card {
-  background: #ffffff;
-  border-radius: 8px;
-  padding: 2rem;
-  width: 300px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: center;
+    background-color: var(--light-color);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--border-color);
+    height: 100%;
+    position: relative;
 }
-
-.testimonial-card p {
-  font-size: 1.1rem;
-  color: #93B0C1;
-  margin-bottom: 1rem;
-}
-
-.testimonial-card span {
-  font-size: 1rem;
-  color: #286284;
-  font-weight: 600;
-}
-
-.testimonial-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-}
-
-.cta {
-  padding: 0.75rem 1.5rem;
-  background: #286284;
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.cta:hover {
-  background-color: #1f4f5d;
-}
-
-footer {
-  margin-top: 4rem;
-  text-align: center;
-  color: #888;
-  font-size: 0.9rem;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: transparent;
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #286284;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 2rem;
-  margin: 0 auto;
-  padding: 0;
-  flex: 1;
-  justify-content: center;
-}
-
-.nav-links li a {
-  text-decoration: none;
-  color: #93B0C1;
-  font-weight: 500;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-}
-
-.nav-links li a:hover {
-  color: #286284;
-}
-
-.profile-btn {
-  background-color: #286284;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.profile-btn:hover {
-  background-color: #1f4f5d;
-}
-
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
+.quote-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+    opacity: 0.2;
     position: absolute;
-    top: 60px;
+    top: var(--spacing-md);
+    left: var(--spacing-lg);
+}
+.testimonial-text {
+    font-size: 1rem;
+    font-style: italic;
+    margin-bottom: var(--spacing-md);
+    position: relative;
+    z-index: 1;
+    color: var(--secondary-color);
+}
+.testimonial-author {
+    font-weight: 600;
+    color: var(--dark-color);
+    text-align: right;
+}
+
+/* =================================================================
+   INTERACTIVE STYLES (Tambahan)
+   ================================================================= */
+
+/* A. Gaya untuk Animasi Saat Scroll */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Penundaan animasi untuk item-item dalam satu baris agar tidak muncul bersamaan */
+.row .animate-on-scroll:nth-child(2) { transition-delay: 0.1s; }
+.row .animate-on-scroll:nth-child(3) { transition-delay: 0.2s; }
+.owl-item .animate-on-scroll { transition-delay: calc(0.1s * var(--owl-item-index)); }
+
+
+/* =================================================================
+   PENYEMPURNAAN INTERAKTIF (Tambahan)
+   ================================================================= */
+
+/* A. Animasi Elemen Hero Saat Halaman Dibuka */
+.hero-text-content > *, .hero-image {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Kelas ini akan ditambahkan oleh JS untuk memicu animasi */
+.hero-section.is-loaded .hero-text-content > *,
+.hero-section.is-loaded .hero-image {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Memberi sedikit jeda antar elemen hero */
+.hero-section.is-loaded .hero-subtitle { transition-delay: 0.2s; }
+.hero-section.is-loaded .hero-cta { transition-delay: 0.4s; }
+.hero-section.is-loaded .hero-image { transition-delay: 0.3s; }
+
+/* B. Efek Hover pada Kartu Layanan (Lebih Hidup) */
+.service-card .service-card-img-container .service-card-img {
+    transition: transform 0.4s ease;
+}
+
+.service-card:hover .service-card-img-container .service-card-img {
+    transform: scale(1.1); /* Efek zoom pada gambar */
+}
+
+/* C. Kustomisasi Carousel Testimoni */
+.testimonial-carousel .owl-dots {
+    margin-top: var(--spacing-lg);
+}
+.testimonial-carousel .owl-nav {
+    display: none; /* Sembunyikan panah di carousel testimoni */
+}
+
+/* D. Gaya untuk Tombol Scroll to Top */
+.scroll-top-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 1.2rem;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+}
+
+.scroll-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-top-btn:hover {
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+}
+
+/* C. Gaya untuk Tombol Loading */
+.btn.is-loading {
+    position: relative;
+    color: transparent !important; /* Sembunyikan teks tombol */
+    pointer-events: none; /* Nonaktifkan klik saat loading */
+}
+
+.btn.is-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border: 3px solid rgba(255, 255, 255, 0.4);
+    border-top-color: var(--white-color);
+    border-radius: 50%;
+    animation: btn-spinner 0.8s linear infinite;
+}
+
+@keyframes btn-spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* D. Peningkatan Efek Hover pada Kartu */
+.feature-card:hover, .service-card:hover {
+    transform: translateY(-8px) scale(1.02); /* Sedikit lebih dramatis */
+    box-shadow: var(--shadow-lg);
+}
+
+/* =================================================================
+   MODAL STYLES
+   ================================================================= */
+.modal-overlay {
+    position: fixed;
+    top: 0;
     left: 0;
     width: 100%;
-    background-color: #ffffff;
-    text-align: center;
-    padding: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-
-  .nav-links.active {
-    display: block;
-  }
-
-  .hamburger {
-    display: block;
-  }
-
-  .profile-btn {
-    display: none;
-  }
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Diubah oleh JS */
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    padding: var(--spacing-md);
 }
-
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+.modal-box {
+    background: var(--white-color);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    max-width: 500px;
+    animation: fadeIn 0.3s ease;
+    position: relative;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
 }
-
-.modal-content {
-  background: #fff;
-  border-radius: 16px;
-  padding: 2rem;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-  animation: fadeIn 0.3s ease;
-  position: relative;
+.modal-title {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    border-bottom: 1px solid var(--border-color);
 }
-
-.modal-content h2 {
-  margin-top: 0;
-  font-size: 1.5rem;
-  color: #286284;
+.btn-close {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background-color: transparent;
+    border: none;
 }
-
-.modal-content p {
-  margin: 1rem 0 0.5rem;
-  font-weight: 500;
-  color: #333;
+.modal-body {
+    padding: var(--spacing-lg);
+    overflow-y: auto;
 }
-
-.modal-content input[type="number"],
-.modal-content select {
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-bottom: 1rem;
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  box-sizing: border-box;
+.form-group {
+    margin-bottom: var(--spacing-md);
 }
-
-.modal-content input[type="radio"] {
-  margin-right: 0.5rem;
+.form-group > label {
+    font-weight: 500;
+    color: var(--dark-color);
+    margin-bottom: var(--spacing-sm);
 }
-
-.modal-content label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: #555;
+.modal-footer {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+    background-color: var(--light-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-left-radius: var(--border-radius-lg);
+    border-bottom-right-radius: var(--border-radius-lg);
 }
-
-.confirm-btn {
-  background-color: #286284;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-  width: 100%;
-}
-
-.confirm-btn:hover {
-  background-color: #1f4f5d;
-}
-
-.close {
-  position: absolute;
-  top: 16px;
-  right: 20px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
-  color: #888;
-}
-
-.close:hover {
-  color: #000;
-}
-
-#total-price {
-  font-weight: bold;
-  font-size: 1.2rem;
-  color: #286284;
+.total-price-text {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--dark-color);
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
+
+/* OWL CAROUSEL CUSTOMIZATION */
+.owl-theme .owl-nav [class*='owl-'] {
+    background: var(--white-color);
+    color: var(--primary-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    box-shadow: var(--shadow-md);
+    transition: all 0.2s ease;
+}
+.owl-theme .owl-nav [class*='owl-']:hover {
+    background: var(--primary-color);
+    color: var(--white-color);
+}
+.owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
+    background: var(--primary-color);
+} 

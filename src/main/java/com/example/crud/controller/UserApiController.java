@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-// DTO untuk response user tanpa password
 class UserProfileDTO {
     public Long id;
     public String username;
@@ -31,7 +30,6 @@ public class UserApiController {
     @Autowired
     private UserRepository userRepository;
 
-    // Mendapatkan user berdasarkan ID (tanpa password)
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         Optional<User> user = userRepository.findById(id);
